@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="new_folder">新建文件夹</string>
+	<string name="filename">文件名</string>
+	<string name="input_name">输入名称</string>
+	<string name="open">打开</string>
+	<string name="save_as">另存为</string>
+	<string name="select_dir">选择一个文件夹</string>
+	<string name="folder_already_exist">该文件夹已存在</string>
+	<string name="file_already_exist">文件已存在，是否覆盖？</string>
+	<string name="cannot_create_hidden_files">无法在当前设置下创建隐藏文件(.)</string>
+	<string name="filename_cannot_begin_with">文件名开头不允许使用这些字符：\n+ -</string>
+	<string name="filename_cannot_contains">文件名中不允许使用这些字符：\n\" * / : &lt; &gt; ? \\ |</string>
+</resources>

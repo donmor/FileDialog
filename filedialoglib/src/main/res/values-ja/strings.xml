@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="new_folder">フォルダーの新規作成</string>
+	<string name="filename">ファイル名</string>
+	<string name="input_name">名前を入力</string>
+	<string name="open">開く</string>
+	<string name="save_as">名前を付けて保存</string>
+	<string name="select_dir">フォルダを選択</string>
+	<string name="folder_already_exist">フォルダは既に存在します</string>
+	<string name="file_already_exist">ファイルが既に存在します。上書きしますか？</string>
+	<string name="cannot_create_hidden_files">隠しファイル(.)は現在の設定では作成できませんでした</string>
+	<string name="filename_cannot_begin_with">これらの文字はファイル名の先頭には使用できません：\n+ -</string>
+	<string name="filename_cannot_contains">これらの文字はファイル名には使用できません：\n\" * / : &lt; &gt; ? \\ |</string>
+</resources>

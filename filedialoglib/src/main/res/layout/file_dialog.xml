@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/Widget.AppCompat.Light.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:drawableStart="@drawable/ic_arrow_back_black"
+            android:drawableLeft="@drawable/ic_arrow_back_black"
+            android:text="@string/parent_dir"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/lblPath"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:layout_weight="1"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <ImageButton
+            android:id="@+id/btnNewFolder"
+            style="@style/Widget.AppCompat.Light.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end|center_vertical"
+            android:contentDescription="@string/new_folder"
+            app:srcCompat="@drawable/ic_create_new_folder_black" />
+    </TableRow>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/diFileList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:minWidth="720dp"
+        android:minHeight="1280dp" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|end">
+
+        <EditText
+            android:id="@+id/save_f_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints="file_name"
+            android:hint="@string/filename"
+            android:imeOptions="actionDone"
+            android:inputType="textPersonName"
+            tools:targetApi="o" />
+
+        <Spinner
+            android:id="@+id/spnExt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </TableRow>
+</TableLayout>

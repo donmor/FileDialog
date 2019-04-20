@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name" translatable="false">FileDialog</string>
+    <string name="f_save_as" translatable="false">Save_As</string>
+    <string name="f_open" translatable="false">Open</string>
+    <string name="f_open_multiple" translatable="false">Open_Multiple</string>
+    <string name="f_select_folder" translatable="false">Select_Folder</string>
+</resources>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name" translatable="false">FileDialogLib</string>
+    <string name="parent_dir" translatable="false">..</string>
+    <string name="new_folder">New Folder</string>
+    <string name="filename">Filename</string>
+    <string name="input_name">Input the name</string>
+    <string name="open">Open</string>
+    <string name="save_as">Save as</string>
+    <string name="select_dir">Select a folder</string>
+    <string name="folder_already_exist">Folder already exists</string>
+    <string name="file_already_exist">File already exists. Do you want to overwrite it?</string>
+    <string name="cannot_create_hidden_files">Hidden(.) files could not be created under current settings</string>
+    <string name="filename_cannot_begin_with">These characters are not allowed at the beginning of a filename:\n+ -</string>
+    <string name="filename_cannot_contains">These characters are not allowed in a filename:\n\" * / : &lt; &gt; ? \\ |</string>
+</resources>
