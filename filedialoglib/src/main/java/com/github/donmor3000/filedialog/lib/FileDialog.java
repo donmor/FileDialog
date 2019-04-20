@@ -402,7 +402,7 @@ public abstract class FileDialog {
 	 * Open a dialog to select folder or files. All parameters are required using this method.
 	 *
 	 * @param parent         The parent Context.
-	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+	 * @param startDirectory The directory the dialog will start with. If invalid, the dialog will start with the default SD card directory.
 	 * @param mode           This parameter decides the type of the dialog. 0 for fileOpen, 1 for fileOpenMultiple, 2 for fileSelectDirectory, and 3 for fileSave.
 	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
 	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
