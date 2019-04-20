@@ -417,6 +417,12 @@ public abstract class FileDialog {
 		final EditText fName = view.findViewById(R.id.save_f_name);
 		if (mode < 3) fName.setVisibility(View.GONE);
 		final TextView lblPath = view.findViewById(R.id.lblPath);
+		try {
+			if (!startDirectory.isDirectory()) throw new Exception();
+		} catch (Exception e) {
+			startDirectory = Environment.getExternalStorageDirectory();
+		}
+
 		lblPath.setText(startDirectory.getAbsolutePath());
 		Spinner spnExt = view.findViewById(R.id.spnExt);
 		if (mode == 2) spnExt.setVisibility(View.GONE);
