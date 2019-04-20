@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 		btn1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				FileDialog.fileSave(MainActivity.this, new String[]{"text/html", "*/*"}, 1, true, new FileDialog.OnFileTouchedListener() {
+				FileDialog.fileOpen(MainActivity.this, new String[]{"text/html", "*/*"}, 1, true, new FileDialog.OnFileTouchedListener() {
 					@Override
 					public void onFileTouched(File[] files) {
 						for (File f : files)
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 		btn2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				FileDialog.fileOpen(MainActivity.this, new String[]{"text/html", "*/*"}, 1, true, new FileDialog.OnFileTouchedListener() {
+				FileDialog.fileOpenMultiple(MainActivity.this, new String[]{"text/html", "*/*"}, 1, true, new FileDialog.OnFileTouchedListener() {
 					@Override
 					public void onFileTouched(File[] files) {
 						for (File f : files)
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 		btn3.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				FileDialog.fileOpenMultiple(MainActivity.this, new String[]{"text/html", "*/*"}, 1, true, new FileDialog.OnFileTouchedListener() {
+				FileDialog.fileSelectDirectory(MainActivity.this, true, new FileDialog.OnFileTouchedListener() {
 					@Override
 					public void onFileTouched(File[] files) {
 						for (File f : files)
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 		btn4.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				FileDialog.fileSelectDirectory(MainActivity.this, true, new FileDialog.OnFileTouchedListener() {
+				FileDialog.fileSave(MainActivity.this, new String[]{"text/html", "*/*"}, 1, true, new FileDialog.OnFileTouchedListener() {
 					@Override
 					public void onFileTouched(File[] files) {
 						for (File f : files)

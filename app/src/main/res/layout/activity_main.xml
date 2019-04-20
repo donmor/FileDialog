@@ -24,25 +24,26 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/f_save_as" />
+            android:text="@string/f_open" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/f_open" />
+            android:text="@string/f_open_multiple" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/f_open_multiple" />
+            android:text="@string/f_select_folder" />
 
         <Button
             android:id="@+id/button4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/f_select_folder" />
+            android:text="@string/f_save_as" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

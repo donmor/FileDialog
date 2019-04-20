@@ -62,7 +62,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, 1, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, 1, false, false, listener);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 2, mimes, 1, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, 1, false, false, listener);
 	}
 
 	/**
@@ -83,7 +83,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, null, 1, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 2, null, 1, false, false, listener);
 	}
 
 	/**
@@ -94,7 +94,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, 1, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, mimes, 1, false, false, listener);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -118,7 +118,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 2, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -129,7 +129,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, null, 1, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 2, null, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -141,7 +141,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, mimes, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -153,7 +153,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, det, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, det, false, false, listener);
 	}
 
 	/**
@@ -165,7 +165,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 2, mimes, det, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, det, false, false, listener);
 	}
 
 	/**
@@ -177,7 +177,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, det, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, mimes, det, false, false, listener);
 	}
 
 	/**
@@ -190,7 +190,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, det, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, det, showHidden, false, listener);
 	}
 
 	/**
@@ -203,7 +203,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 2, mimes, det, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, det, showHidden, false, listener);
 	}
 
 	/**
@@ -216,7 +216,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, det, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, mimes, det, showHidden, false, listener);
 	}
 
 	/**
@@ -228,7 +228,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 1, mimes, 1, false, false, listener);
+		fileDialog(parent, startDirectory, 0, mimes, 1, false, false, listener);
 	}
 
 	/**
@@ -240,7 +240,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 2, mimes, 1, false, false, listener);
+		fileDialog(parent, startDirectory, 1, mimes, 1, false, false, listener);
 	}
 
 	/**
@@ -251,7 +251,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, File startDirectory, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 3, null, 1, false, false, listener);
+		fileDialog(parent, startDirectory, 2, null, 1, false, false, listener);
 	}
 
 	/**
@@ -263,7 +263,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, File startDirectory, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 0, mimes, 1, false, false, listener);
+		fileDialog(parent, startDirectory, 3, mimes, 1, false, false, listener);
 	}
 
 	/**
@@ -276,7 +276,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 1, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, startDirectory, 0, mimes, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -289,7 +289,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 2, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, startDirectory, 1, mimes, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -301,7 +301,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, File startDirectory, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 3, null, 1, showHidden, false, listener);
+		fileDialog(parent, startDirectory, 2, null, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -314,7 +314,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, File startDirectory, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 0, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, startDirectory, 3, mimes, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -327,7 +327,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 1, mimes, det, false, false, listener);
+		fileDialog(parent, startDirectory, 0, mimes, det, false, false, listener);
 	}
 
 	/**
@@ -340,7 +340,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 2, mimes, det, false, false, listener);
+		fileDialog(parent, startDirectory, 1, mimes, det, false, false, listener);
 	}
 
 	/**
@@ -353,7 +353,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 0, mimes, det, false, false, listener);
+		fileDialog(parent, startDirectory, 3, mimes, det, false, false, listener);
 	}
 
 	/**
@@ -367,7 +367,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 1, mimes, det, showHidden, false, listener);
+		fileDialog(parent, startDirectory, 0, mimes, det, showHidden, false, listener);
 	}
 
 	/**
@@ -381,7 +381,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 2, mimes, det, showHidden, false, listener);
+		fileDialog(parent, startDirectory, 1, mimes, det, showHidden, false, listener);
 	}
 
 	/**
@@ -395,7 +395,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 0, mimes, det, showHidden, false, listener);
+		fileDialog(parent, startDirectory, 3, mimes, det, showHidden, false, listener);
 	}
 
 	/**
@@ -403,7 +403,7 @@ public abstract class FileDialog {
 	 *
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mode           This parameter decides the type of the dialog. 0 for fileSave, 1 for fileOpen, 2 for fileOpenMultiple, and 3 for fileSelectDirectory.
+	 * @param mode           This parameter decides the type of the dialog. 0 for fileOpen, 1 for fileOpenMultiple, 2 for fileSelectDirectory, and 3 for fileSave.
 	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
 	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
 	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
@@ -415,11 +415,11 @@ public abstract class FileDialog {
 		final View view = LayoutInflater.from(parent).inflate(R.layout.file_dialog, null);
 		final String[] mimeTypes = MimeTypeUtil.trimMime(mimes);
 		final EditText fName = view.findViewById(R.id.save_f_name);
-		if (mode > 0) fName.setVisibility(View.GONE);
+		if (mode < 3) fName.setVisibility(View.GONE);
 		final TextView lblPath = view.findViewById(R.id.lblPath);
 		lblPath.setText(startDirectory.getAbsolutePath());
 		Spinner spnExt = view.findViewById(R.id.spnExt);
-		if (mode == 3) spnExt.setVisibility(View.GONE);
+		if (mode == 2) spnExt.setVisibility(View.GONE);
 		else {
 			ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, MimeTypeUtil.getDescriptions(mimeTypes, det));
 			spinnerAdapter.setDropDownViewResource(R.layout.ext_slot);
@@ -428,12 +428,12 @@ public abstract class FileDialog {
 		}
 		final RecyclerView dir = view.findViewById(R.id.diFileList);
 		dir.setLayoutManager(new LinearLayoutManager(view.getContext()));
-		final FileDialogAdapter dirAdapter = new FileDialogAdapter(view.getContext(), mimeTypes, startDirectory, mode == 2, mode == 3, showHidden, ignoreReadOnly);
+		final FileDialogAdapter dirAdapter = new FileDialogAdapter(view.getContext(), mimeTypes, startDirectory, mode == 1, mode == 2, showHidden, ignoreReadOnly);
 		dir.setAdapter(dirAdapter);
 		final Button btnBack = view.findViewById(R.id.btnBack);
 		btnBack.setEnabled(dirAdapter.getDevices().length > 1);
 		ImageButton btnNewFolder = view.findViewById(R.id.btnNewFolder);
-		if (!(mode == 0 || mode == 3)) btnNewFolder.setVisibility(View.GONE);
+		if (mode < 2) btnNewFolder.setVisibility(View.GONE);
 		else btnNewFolder.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -510,7 +510,7 @@ public abstract class FileDialog {
 				});
 			}
 		});
-		if (mode < 3) {
+		if (mode != 2) {
 			spnExt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -526,11 +526,11 @@ public abstract class FileDialog {
 			});
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(parent).setView(view);
-		if (mode == 1) builder.setTitle(R.string.open);
+		if (mode == 0) builder.setTitle(R.string.open);
 		else {
-			if (mode == 0) builder.setTitle(R.string.save_as);
-			else if (mode == 2) builder.setTitle(R.string.open);
-			else if (mode == 3) builder.setTitle(R.string.select_dir);
+			if (mode == 1) builder.setTitle(R.string.open);
+			else if (mode == 2) builder.setTitle(R.string.select_dir);
+			else if (mode == 3) builder.setTitle(R.string.save_as);
 			builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -549,18 +549,26 @@ public abstract class FileDialog {
 		});
 		fileDialog.show();
 		final Button ok = fileDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-		ok.setEnabled(mode == 3);
+		ok.setEnabled(mode == 2);
 		ok.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mode == 0) {
+				if (mode == 1) {
+					File[] files = dirAdapter.getSelectedFiles();
+					if (files.length > 0) {
+						listener.onFileTouched(files);
+						fileDialog.dismiss();
+					}
+				} else if (mode == 2) {
+					listener.onFileTouched(new File[]{dirAdapter.getCurrentDir()});
+					fileDialog.dismiss();
+				} else if (mode == 3) {
 					String fn = fName.getText().toString();
 					fn = MimeTypeUtil.formatFilename(fn, mimeTypes[dirAdapter.getMimeIndex()], -1);
 					String fPath = dirAdapter.getCurrentDir().getAbsolutePath() + '/' + fn;
 					final File of = new File(fPath);
 					if (of.exists()) {
 						new AlertDialog.Builder(view.getContext())
-//								.setTitle(R.string.notice)
 								.setMessage(R.string.file_already_exist)
 								.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 									@Override
@@ -575,15 +583,6 @@ public abstract class FileDialog {
 						listener.onFileTouched(new File[]{of});
 						fileDialog.dismiss();
 					}
-				} else if (mode == 2) {
-					File[] files = dirAdapter.getSelectedFiles();
-					if (files.length > 0) {
-						listener.onFileTouched(files);
-						fileDialog.dismiss();
-					}
-				} else if (mode == 3) {
-					listener.onFileTouched(new File[]{dirAdapter.getCurrentDir()});
-					fileDialog.dismiss();
 				}
 			}
 		});
@@ -596,7 +595,9 @@ public abstract class FileDialog {
 					dir.setAdapter(dirAdapter);
 					lblPath.setText(f.getAbsolutePath());
 					btnBack.setEnabled(dirAdapter.getDevices().length > 1 || !dirAdapter.getRootDir().getAbsolutePath().equals(f.getAbsolutePath()));
-					if (mode == 0) {
+					if (mode == 1) ok.setEnabled(false);
+					else if (mode == 2) ok.setEnabled(true);
+					else if (mode == 3) {
 						if (fName.getText().toString().startsWith(".")) {
 							if (showHidden || fName.getText().toString().substring(1).length() == 0)
 								ok.setEnabled(false);
@@ -606,8 +607,7 @@ public abstract class FileDialog {
 						} else if (fName.getText().toString().length() > 0)
 							ok.setEnabled(true);
 						else ok.setEnabled(false);
-					} else if (mode == 2) ok.setEnabled(false);
-					else if (mode == 3) ok.setEnabled(true);
+					}
 					if (fName.getText().toString().length() > 0 && !illegalFilename(fName.getText().toString()))
 						ok.setEnabled(true);
 				} else {
@@ -628,7 +628,9 @@ public abstract class FileDialog {
 					dir.setAdapter(dirAdapter);
 					lblPath.setText(f.getAbsolutePath());
 					btnBack.setEnabled(dirAdapter.getDevices().length > 1 || !dirAdapter.getRootDir().getAbsolutePath().equals(f.getAbsolutePath()));
-					if (mode == 0) {
+					if (mode == 1) ok.setEnabled(false);
+					else if (mode == 2) ok.setEnabled(true);
+					else if (mode == 3) {
 						if (fName.getText().toString().startsWith(".")) {
 							if (showHidden || fName.getText().toString().substring(1).length() == 0)
 								ok.setEnabled(false);
@@ -638,15 +640,14 @@ public abstract class FileDialog {
 						} else if (fName.getText().toString().length() > 0)
 							ok.setEnabled(true);
 						else ok.setEnabled(false);
-					} else if (mode == 2) ok.setEnabled(false);
-					else if (mode == 3) ok.setEnabled(true);
+					}
 				} else if (f.isFile()) {
-					if (mode == 1) {
+					if (mode == 0) {
 						listener.onFileTouched(new File[]{f});
 						fileDialog.dismiss();
-					} else if (mode == 2) {
+					} else if (mode == 1) {
 						ok.setEnabled(dirAdapter.getSelectedFiles().length > 0);
-					} else {
+					} else if (mode == 3) {
 						String fn = f.getName();
 						if (fn.equals(fName.getText().toString()))
 							if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
