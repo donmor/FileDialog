@@ -62,7 +62,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, 1, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, 1, false, false, listener);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, 1, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, 1, false, false, listener);
 	}
 
 	/**
@@ -83,7 +83,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 2, null, 1, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 2, null, 0, 1, false, false, listener);
 	}
 
 	/**
@@ -94,7 +94,19 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, mimes, 1, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, 1, false, false, listener);
+	}
+
+	/**
+	 * Open a dialog to select a file path to be saved.
+	 *
+	 * @param parent   The parent Context.
+	 * @param filename The default filename.
+	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param listener The call back that will be run when the dialog is closed.
+	 */
+	public static void fileSave(final Context parent, String filename, String[] mimes, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, 1, false, false, listener);
 	}
 
 	/**
@@ -106,7 +118,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -118,7 +130,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -129,7 +141,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 2, null, 1, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 2, null, 0, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -141,7 +153,20 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, 1, showHidden, false, listener);
+	}
+
+	/**
+	 * Open a dialog to select a file path to be saved.
+	 *
+	 * @param parent     The parent Context.
+	 * @param filename   The default filename.
+	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
+	 * @param listener   The call back that will be run when the dialog is closed.
+	 */
+	public static void fileSave(final Context parent, String filename, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -153,7 +178,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, det, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, det, false, false, listener);
 	}
 
 	/**
@@ -165,7 +190,7 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, det, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, det, false, false, listener);
 	}
 
 	/**
@@ -177,7 +202,20 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, mimes, det, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, det, false, false, listener);
+	}
+
+	/**
+	 * Open a dialog to select a file path to be saved.
+	 *
+	 * @param parent   The parent Context.
+	 * @param filename The default filename.
+	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param det      The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+	 * @param listener The call back that will be run when the dialog is closed.
+	 */
+	public static void fileSave(final Context parent, String filename, String[] mimes, int det, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, det, false, false, listener);
 	}
 
 	/**
@@ -190,7 +228,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 0, mimes, det, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, det, showHidden, false, listener);
 	}
 
 	/**
@@ -203,7 +241,7 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 1, mimes, det, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, det, showHidden, false, listener);
 	}
 
 	/**
@@ -216,7 +254,21 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), 3, mimes, det, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, det, showHidden, false, listener);
+	}
+
+	/**
+	 * Open a dialog to select a file path to be saved.
+	 *
+	 * @param parent     The parent Context.
+	 * @param filename   The default filename.
+	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param det        The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
+	 * @param listener   The call back that will be run when the dialog is closed.
+	 */
+	public static void fileSave(final Context parent, String filename, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, det, showHidden, false, listener);
 	}
 
 	/**
@@ -228,7 +280,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 0, mimes, 1, false, false, listener);
+		fileDialog(parent, startDirectory, null, 0, mimes, 0, 1, false, false, listener);
 	}
 
 	/**
@@ -240,7 +292,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 1, mimes, 1, false, false, listener);
+		fileDialog(parent, startDirectory, null, 1, mimes, 0, 1, false, false, listener);
 	}
 
 	/**
@@ -251,7 +303,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, File startDirectory, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 2, null, 1, false, false, listener);
+		fileDialog(parent, startDirectory, null, 2, null, 0, 1, false, false, listener);
 	}
 
 	/**
@@ -263,7 +315,20 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, File startDirectory, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 3, mimes, 1, false, false, listener);
+		fileDialog(parent, startDirectory, null, 3, mimes, 0, 1, false, false, listener);
+	}
+
+	/**
+	 * Open a dialog to select a file path to be saved.
+	 *
+	 * @param parent         The parent Context.
+	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+	 * @param filename       The default filename.
+	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param listener       The call back that will be run when the dialog is closed.
+	 */
+	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, filename, 3, mimes, 0, 1, false, false, listener);
 	}
 
 	/**
@@ -276,7 +341,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 0, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, startDirectory, null, 0, mimes, 0, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -289,7 +354,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 1, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, startDirectory, null, 1, mimes, 0, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -301,7 +366,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, File startDirectory, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 2, null, 1, showHidden, false, listener);
+		fileDialog(parent, startDirectory, null, 2, null, 0, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -314,7 +379,21 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, File startDirectory, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 3, mimes, 1, showHidden, false, listener);
+		fileDialog(parent, startDirectory, null, 3, mimes, 0, 1, showHidden, false, listener);
+	}
+
+	/**
+	 * Open a dialog to select a file path to be saved.
+	 *
+	 * @param parent         The parent Context.
+	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+	 * @param filename       The default filename.
+	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
+	 * @param listener       The call back that will be run when the dialog is closed.
+	 */
+	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, filename, 3, mimes, 0, 1, showHidden, false, listener);
 	}
 
 	/**
@@ -327,7 +406,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 0, mimes, det, false, false, listener);
+		fileDialog(parent, startDirectory, null, 0, mimes, 0, det, false, false, listener);
 	}
 
 	/**
@@ -340,7 +419,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 1, mimes, det, false, false, listener);
+		fileDialog(parent, startDirectory, null, 1, mimes, 0, det, false, false, listener);
 	}
 
 	/**
@@ -353,7 +432,21 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 3, mimes, det, false, false, listener);
+		fileDialog(parent, startDirectory, null, 3, mimes, 0, det, false, false, listener);
+	}
+
+	/**
+	 * Open a dialog to select a file path to be saved.
+	 *
+	 * @param parent         The parent Context.
+	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+	 * @param filename       The default filename.
+	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+	 * @param listener       The call back that will be run when the dialog is closed.
+	 */
+	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, int det, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, filename, 3, mimes, 0, det, false, false, listener);
 	}
 
 	/**
@@ -367,7 +460,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 0, mimes, det, showHidden, false, listener);
+		fileDialog(parent, startDirectory, null, 0, mimes, 0, det, showHidden, false, listener);
 	}
 
 	/**
@@ -381,7 +474,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 1, mimes, det, showHidden, false, listener);
+		fileDialog(parent, startDirectory, null, 1, mimes, 0, det, showHidden, false, listener);
 	}
 
 	/**
@@ -395,7 +488,22 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSave(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, 3, mimes, det, showHidden, false, listener);
+		fileDialog(parent, startDirectory, null, 3, mimes, 0, det, showHidden, false, listener);
+	}
+
+	/**
+	 * Open a dialog to select a file path to be saved.
+	 *
+	 * @param parent         The parent Context.
+	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+	 * @param filename       The default filename.
+	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
+	 * @param listener       The call back that will be run when the dialog is closed.
+	 */
+	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, filename, 3, mimes, 0, det, showHidden, false, listener);
 	}
 
 	/**
@@ -403,26 +511,28 @@ public abstract class FileDialog {
 	 *
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. If invalid, the dialog will start with the default SD card directory.
+	 * @param filename       The default filename for fileSave mode. It will be ignored in other modes.
 	 * @param mode           This parameter decides the type of the dialog. 0 for fileOpen, 1 for fileOpenMultiple, 2 for fileSelectDirectory, and 3 for fileSave.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. The string array will be firstly trimmed,  if one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param mimeIndex      This parameter provides the default position of MIME types chooser spinner. Usually its value is 0, and it will be reset if an invalid value was passed.
 	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
 	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param ignoreReadOnly This parameter decides whether read-only status of a device will be ignored, for example, most of systems prevents third part apps from writing to external SD cards.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	@SuppressWarnings("WeakerAccess")
-	public static void fileDialog(final Context parent, File startDirectory, final int mode, String[] mimes, int det, final boolean showHidden, boolean ignoreReadOnly, final OnFileTouchedListener listener) {
+	public static void fileDialog(final Context parent, File startDirectory, String filename, final int mode, String[] mimes, int mimeIndex, int det, final boolean showHidden, boolean ignoreReadOnly, final OnFileTouchedListener listener) {
 		final View view = LayoutInflater.from(parent).inflate(R.layout.file_dialog, null);
 		final String[] mimeTypes = MimeTypeUtil.trimMime(mimes);
 		final EditText fName = view.findViewById(R.id.save_f_name);
 		if (mode < 3) fName.setVisibility(View.GONE);
+		else if (filename != null && filename.length() > 0) fName.setText(filename);
 		final TextView lblPath = view.findViewById(R.id.lblPath);
 		try {
-			if (!startDirectory.isDirectory()) throw new Exception();
+			if (!startDirectory.isDirectory() || !startDirectory.canWrite()) throw new Exception();
 		} catch (Exception e) {
 			startDirectory = Environment.getExternalStorageDirectory();
 		}
-
 		lblPath.setText(startDirectory.getAbsolutePath());
 		Spinner spnExt = view.findViewById(R.id.spnExt);
 		if (mode == 2) spnExt.setVisibility(View.GONE);
@@ -430,6 +540,7 @@ public abstract class FileDialog {
 			ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, MimeTypeUtil.getDescriptions(mimeTypes, det));
 			spinnerAdapter.setDropDownViewResource(R.layout.ext_slot);
 			spnExt.setAdapter(spinnerAdapter);
+			if (mimeIndex > 0 && mimeIndex < mimeTypes.length) spnExt.setSelection(mimeIndex);
 			if (mimeTypes.length == 1) spnExt.setEnabled(false);
 		}
 		final RecyclerView dir = view.findViewById(R.id.diFileList);
@@ -437,7 +548,7 @@ public abstract class FileDialog {
 		final FileDialogAdapter dirAdapter = new FileDialogAdapter(view.getContext(), mimeTypes, startDirectory, mode == 1, mode == 2, showHidden, ignoreReadOnly);
 		dir.setAdapter(dirAdapter);
 		final Button btnBack = view.findViewById(R.id.btnBack);
-		btnBack.setEnabled(dirAdapter.getDevices().length > 1);
+		btnBack.setEnabled(dirAdapter.getDevices().length > 1 || !startDirectory.equals(Environment.getExternalStorageDirectory()));
 		ImageButton btnNewFolder = view.findViewById(R.id.btnNewFolder);
 		if (mode < 2) btnNewFolder.setVisibility(View.GONE);
 		else btnNewFolder.setOnClickListener(new View.OnClickListener() {
@@ -555,7 +666,21 @@ public abstract class FileDialog {
 		});
 		fileDialog.show();
 		final Button ok = fileDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-		ok.setEnabled(mode == 2);
+//		ok.setEnabled(mode == 2);
+		if (mode == 1) ok.setEnabled(false);
+		else if (mode == 2) ok.setEnabled(true);
+		else if (mode == 3) {
+			if (fName.getText().toString().startsWith(".")) {
+				if (showHidden || fName.getText().toString().substring(1).length() == 0)
+					ok.setEnabled(false);
+				else ok.setEnabled(true);
+			} else if (fName.getText().toString().startsWith("+") || fName.getText().toString().startsWith("-") || illegalFilename(fName.getText().toString())) {
+				ok.setEnabled(false);
+			} else if (fName.getText().toString().length() > 0)
+				ok.setEnabled(true);
+			else ok.setEnabled(false);
+		}
+
 		ok.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
