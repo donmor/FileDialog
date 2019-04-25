@@ -1,4 +1,4 @@
-package com.github.donmor3000.filedialog.lib.utils;
+package com.github.donmor3000.filedialog.lib;
 
 import android.content.Context;
 import android.os.Environment;
@@ -11,31 +11,35 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.github.donmor3000.filedialog.lib.*;
+//import com.github.donmor3000.filedialog.lib.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.io.FileFilter;
 
-public class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewHolder> {
+class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewHolder> {
 
 	private File currentDir;
 	private final File rootDir;
 	private boolean[] selected;
 	private File[] files, dirs, devices;
 	private boolean enRoot;
-	private final boolean multiSelect, dirOnly, showHidden,ignoreReadOnly;
-	private int mimeIndex;
+	private final boolean multiSelect, dirOnly, showHidden, ignoreReadOnly;
+	private int filterIndex;
 	private final Context context;
-	private final String[] mimeTypes;
+	final String[] mimeTypes;
+	final FileDialogFilter[] filters;
 	private final LayoutInflater inflater;
 
-	public FileDialogAdapter(Context context, String[] mimeTypes, File dir, boolean multiSelect, boolean dirOnly, boolean showHidden, boolean ignoreReadOnly) {
+	//	FileDialogAdapter(Context context, String[][] filters, int filterIndex, String[] mimeTypes, File dir, boolean multiSelect, boolean dirOnly, boolean showHidden, boolean ignoreReadOnly) {
+	FileDialogAdapter(Context context, FileDialogFilter[] filters, int filterIndex, String[] mimeTypes, File dir, boolean multiSelect, boolean dirOnly, boolean showHidden, boolean ignoreReadOnly) {
 		this.context = context;
 		this.multiSelect = multiSelect;
 		this.dirOnly = dirOnly;
 		this.showHidden = showHidden;
 		this.ignoreReadOnly = ignoreReadOnly;
 		this.mimeTypes = mimeTypes;
+		this.filters = filters;
+		this.filterIndex = filterIndex;
 		inflater = LayoutInflater.from(context);
 		try {
 			currentDir = dir;
@@ -50,7 +54,7 @@ public class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.Fi
 		if (dirOnly) files = new File[0];
 		else files = sortFile(getFiles());
 		if (files != null) selected = new boolean[files.length];
-		devices = FileDialog.getStorage(context.getApplicationContext(),ignoreReadOnly);
+		devices = FileDialog.getStorage(context.getApplicationContext(), ignoreReadOnly);
 	}
 
 	class FileViewHolder extends RecyclerView.ViewHolder {
@@ -154,7 +158,11 @@ public class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.Fi
 		return currentDir.listFiles(new FileFilter() {
 			@Override
 			public boolean accept(File pathname) {
-				return !(pathname.isHidden() && showHidden) && pathname.isFile() && MimeTypeUtil.meetsMimeTypes(pathname.getName(), mimeTypes[mimeIndex]);
+				if (mimeTypes != null)
+					return !(pathname.isHidden() && showHidden) && pathname.isFile() && MimeTypeUtil.meetsMimeTypes(pathname.getName(), mimeTypes[filterIndex]);
+				else {
+					return !(pathname.isHidden() && showHidden) && pathname.isFile() && filters[filterIndex].meetExtensions(pathname.getName());
+				}
 			}
 		});
 	}
@@ -183,12 +191,12 @@ public class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.Fi
 		return false;
 	}
 
-	public void setMimeIndex(int index) {
-		mimeIndex = index;
+	public void setFilterIndex(int index) {
+		filterIndex = index;
 	}
 
-	public int getMimeIndex() {
-		return mimeIndex;
+	public int getFilterIndex() {
+		return filterIndex;
 	}
 
 	public File getFile(int position) {
@@ -254,7 +262,7 @@ public class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.Fi
 	}
 
 	public void setRoot() {
-		devices = FileDialog.getStorage(context.getApplicationContext(),ignoreReadOnly);
+		devices = FileDialog.getStorage(context.getApplicationContext(), ignoreReadOnly);
 		selected = new boolean[0];
 		enRoot = true;
 	}
@@ -262,7 +270,11 @@ public class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.Fi
 	public void reload() {
 		if (!enRoot) {
 			dirs = sortFile(getDirs());
-			files = sortFile(getFiles());
-		}
+			if (dirOnly) files = new File[0];
+			else files = sortFile(getFiles());
+			if (files != null) selected = new boolean[files.length];
+		}else{
+			devices = FileDialog.getStorage(context.getApplicationContext(), ignoreReadOnly);
+			selected = new boolean[0];		}
 	}
 }

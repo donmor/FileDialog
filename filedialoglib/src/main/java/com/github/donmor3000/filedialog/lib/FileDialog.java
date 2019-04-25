@@ -24,8 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.donmor3000.filedialog.lib.utils.FileDialogAdapter;
-import com.github.donmor3000.filedialog.lib.utils.MimeTypeUtil;
+//import com.github.donmor3000.filedialog.lib.utils.FileDialogAdapter;
+//import com.github.donmor3000.filedialog.lib.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -33,6 +33,7 @@ import java.lang.reflect.Method;
 /**
  * The class FileDialog provides a set of methods to open dialogs for file-operating. Make sure that WRITE_EXTERNAL_STORAGE permission of the app have been set to GRANTED if API level is higher than 22, and "android.defaultConfig.vectorDrawables.useSupportLibrary = true" should be added into build.gradle of the app if API level is lower than 21.
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class FileDialog {
 
 	/**
@@ -58,22 +59,22 @@ public abstract class FileDialog {
 	 * Open a dialog to select a single file to be opened.
 	 *
 	 * @param parent   The parent Context.
-	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters  This parameter provides a set of filters.
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
-	public static void fileOpen(final Context parent, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, 1, false, false, listener);
+	public static void fileOpen(final Context parent, FileDialogFilter[] filters, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, filters, 0, null, 0, false, false, listener);
 	}
 
 	/**
 	 * Open a dialog to select multiple files to be opened.
 	 *
 	 * @param parent   The parent Context.
-	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters  This parameter provides a set of filters.
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
-	public static void fileOpenMultiple(final Context parent, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, 1, false, false, listener);
+	public static void fileOpenMultiple(final Context parent, FileDialogFilter[] filters, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, filters, 0, null, 0, false, false, listener);
 	}
 
 	/**
@@ -83,18 +84,18 @@ public abstract class FileDialog {
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 2, null, 0, 1, false, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 2, null, 0, null, 0, false, false, listener);
 	}
 
 	/**
 	 * Open a dialog to select a file path to be saved.
 	 *
 	 * @param parent   The parent Context.
-	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters  This parameter provides a set of filters.
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
-	public static void fileSave(final Context parent, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, 1, false, false, listener);
+	public static void fileSave(final Context parent, FileDialogFilter[] filters, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, filters, 0, null, 0, false, false, listener);
 	}
 
 	/**
@@ -102,35 +103,35 @@ public abstract class FileDialog {
 	 *
 	 * @param parent   The parent Context.
 	 * @param filename The default filename.
-	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters  This parameter provides a set of filters.
 	 * @param listener The call back that will be run when the dialog is closed.
 	 */
-	public static void fileSave(final Context parent, String filename, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, 1, false, false, listener);
+	public static void fileSave(final Context parent, String filename, FileDialogFilter[] filters, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, filters, 0, null, 0, false, false, listener);
 	}
 
 	/**
 	 * Open a dialog to select a single file to be opened.
 	 *
 	 * @param parent     The parent Context.
-	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters    This parameter provides a set of filters.
 	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
-	public static void fileOpen(final Context parent, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, 1, showHidden, false, listener);
+	public static void fileOpen(final Context parent, FileDialogFilter[] filters, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, filters, 0, null, 0, showHidden, false, listener);
 	}
 
 	/**
 	 * Open a dialog to select multiple files to be opened.
 	 *
 	 * @param parent     The parent Context.
-	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters    This parameter provides a set of filters.
 	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
-	public static void fileOpenMultiple(final Context parent, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, 1, showHidden, false, listener);
+	public static void fileOpenMultiple(final Context parent, FileDialogFilter[] filters, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, filters, 0, null, 0, showHidden, false, listener);
 	}
 
 	/**
@@ -141,120 +142,19 @@ public abstract class FileDialog {
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 2, null, 0, 1, showHidden, false, listener);
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 2, null, 0, null, 0, showHidden, false, listener);
 	}
 
 	/**
 	 * Open a dialog to select a file path to be saved.
 	 *
 	 * @param parent     The parent Context.
-	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters    This parameter provides a set of filters.
 	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
-	public static void fileSave(final Context parent, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, 1, showHidden, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a file path to be saved.
-	 *
-	 * @param parent     The parent Context.
-	 * @param filename   The default filename.
-	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
-	 * @param listener   The call back that will be run when the dialog is closed.
-	 */
-	public static void fileSave(final Context parent, String filename, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, 1, showHidden, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a single file to be opened.
-	 *
-	 * @param parent   The parent Context.
-	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det      The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param listener The call back that will be run when the dialog is closed.
-	 */
-	public static void fileOpen(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, det, false, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select multiple files to be opened.
-	 *
-	 * @param parent   The parent Context.
-	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det      The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param listener The call back that will be run when the dialog is closed.
-	 */
-	public static void fileOpenMultiple(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, det, false, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a file path to be saved.
-	 *
-	 * @param parent   The parent Context.
-	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det      The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param listener The call back that will be run when the dialog is closed.
-	 */
-	public static void fileSave(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, det, false, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a file path to be saved.
-	 *
-	 * @param parent   The parent Context.
-	 * @param filename The default filename.
-	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det      The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param listener The call back that will be run when the dialog is closed.
-	 */
-	public static void fileSave(final Context parent, String filename, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, det, false, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a single file to be opened.
-	 *
-	 * @param parent     The parent Context.
-	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det        The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
-	 * @param listener   The call back that will be run when the dialog is closed.
-	 */
-	public static void fileOpen(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, det, showHidden, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select multiple files to be opened.
-	 *
-	 * @param parent     The parent Context.
-	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det        The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
-	 * @param listener   The call back that will be run when the dialog is closed.
-	 */
-	public static void fileOpenMultiple(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, det, showHidden, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a file path to be saved.
-	 *
-	 * @param parent     The parent Context.
-	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det        The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
-	 * @param listener   The call back that will be run when the dialog is closed.
-	 */
-	public static void fileSave(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, det, showHidden, false, listener);
+	public static void fileSave(final Context parent, FileDialogFilter[] filters, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, filters, 0, null, 0, showHidden, false, listener);
 	}
 
 	/**
@@ -262,25 +162,126 @@ public abstract class FileDialog {
 	 *
 	 * @param parent     The parent Context.
 	 * @param filename   The default filename.
-	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det        The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+	 * @param filters    This parameter provides a set of filters.
 	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param listener   The call back that will be run when the dialog is closed.
 	 */
-	public static void fileSave(final Context parent, String filename, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, det, showHidden, false, listener);
+	public static void fileSave(final Context parent, String filename, FileDialogFilter[] filters, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, filters, 0, null, 0, showHidden, false, listener);
 	}
+
+//	/**
+//	 * Open a dialog to select a single file to be opened.
+//	 *
+//	 * @param parent   The parent Context.
+//	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det      The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param listener The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileOpen(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
+//		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, det, false, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select multiple files to be opened.
+//	 *
+//	 * @param parent   The parent Context.
+//	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det      The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param listener The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileOpenMultiple(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
+//		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, det, false, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a file path to be saved.
+//	 *
+//	 * @param parent   The parent Context.
+//	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det      The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param listener The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileSave(final Context parent, String[] mimes, int det, final OnFileTouchedListener listener) {
+//		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, det, false, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a file path to be saved.
+//	 *
+//	 * @param parent   The parent Context.
+//	 * @param filename The default filename.
+//	 * @param mimes    The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det      The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param listener The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileSave(final Context parent, String filename, String[] mimes, int det, final OnFileTouchedListener listener) {
+//		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, det, false, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a single file to be opened.
+//	 *
+//	 * @param parent     The parent Context.
+//	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det        The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
+//	 * @param listener   The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileOpen(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+//		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 0, mimes, 0, det, showHidden, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select multiple files to be opened.
+//	 *
+//	 * @param parent     The parent Context.
+//	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det        The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
+//	 * @param listener   The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileOpenMultiple(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+//		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 1, mimes, 0, det, showHidden, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a file path to be saved.
+//	 *
+//	 * @param parent     The parent Context.
+//	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det        The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
+//	 * @param listener   The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileSave(final Context parent, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+//		fileDialog(parent, Environment.getExternalStorageDirectory(), null, 3, mimes, 0, det, showHidden, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a file path to be saved.
+//	 *
+//	 * @param parent     The parent Context.
+//	 * @param filename   The default filename.
+//	 * @param mimes      The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det        The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param showHidden This parameter decides whether hidden(starts with '.') files could be shown or be created.
+//	 * @param listener   The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileSave(final Context parent, String filename, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+//		fileDialog(parent, Environment.getExternalStorageDirectory(), filename, 3, mimes, 0, det, showHidden, false, listener);
+//	}
 
 	/**
 	 * Open a dialog to select a single file to be opened.
 	 *
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters        This parameter provides a set of filters.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 0, mimes, 0, 1, false, false, listener);
+	public static void fileOpen(final Context parent, File startDirectory, FileDialogFilter[] filters, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, null, 0, filters, 0, null, 0, false, false, listener);
 	}
 
 	/**
@@ -288,11 +289,11 @@ public abstract class FileDialog {
 	 *
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters        This parameter provides a set of filters.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 1, mimes, 0, 1, false, false, listener);
+	public static void fileOpenMultiple(final Context parent, File startDirectory, FileDialogFilter[] filters, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, null, 1, filters, 0, null, 0, false, false, listener);
 	}
 
 	/**
@@ -303,7 +304,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, File startDirectory, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 2, null, 0, 1, false, false, listener);
+		fileDialog(parent, startDirectory, null, 2, null, 0, null, 0, false, false, listener);
 	}
 
 	/**
@@ -311,11 +312,11 @@ public abstract class FileDialog {
 	 *
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters        This parameter provides a set of filters.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	public static void fileSave(final Context parent, File startDirectory, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 3, mimes, 0, 1, false, false, listener);
+	public static void fileSave(final Context parent, File startDirectory, FileDialogFilter[] filters, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, null, 3, filters, 0, null, 0, false, false, listener);
 	}
 
 	/**
@@ -324,11 +325,11 @@ public abstract class FileDialog {
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
 	 * @param filename       The default filename.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters        This parameter provides a set of filters.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, filename, 3, mimes, 0, 1, false, false, listener);
+	public static void fileSave(final Context parent, File startDirectory, String filename, FileDialogFilter[] filters, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, filename, 3, filters, 0, null, 0, false, false, listener);
 	}
 
 	/**
@@ -336,12 +337,12 @@ public abstract class FileDialog {
 	 *
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters        This parameter provides a set of filters.
 	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 0, mimes, 0, 1, showHidden, false, listener);
+	public static void fileOpen(final Context parent, File startDirectory, FileDialogFilter[] filters, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, null, 0, filters, 0, null, 0, showHidden, false, listener);
 	}
 
 	/**
@@ -349,12 +350,12 @@ public abstract class FileDialog {
 	 *
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters        This parameter provides a set of filters.
 	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 1, mimes, 0, 1, showHidden, false, listener);
+	public static void fileOpenMultiple(final Context parent, File startDirectory, FileDialogFilter[] filters, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, null, 1, filters, 0, null, 0, showHidden, false, listener);
 	}
 
 	/**
@@ -366,7 +367,7 @@ public abstract class FileDialog {
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
 	public static void fileSelectDirectory(final Context parent, File startDirectory, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 2, null, 0, 1, showHidden, false, listener);
+		fileDialog(parent, startDirectory, null, 2, null, 0, null, 0, showHidden, false, listener);
 	}
 
 	/**
@@ -374,65 +375,12 @@ public abstract class FileDialog {
 	 *
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param filters        This parameter provides a set of filters.
 	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	public static void fileSave(final Context parent, File startDirectory, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 3, mimes, 0, 1, showHidden, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a file path to be saved.
-	 *
-	 * @param parent         The parent Context.
-	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param filename       The default filename.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
-	 * @param listener       The call back that will be run when the dialog is closed.
-	 */
-	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, filename, 3, mimes, 0, 1, showHidden, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a single file to be opened.
-	 *
-	 * @param parent         The parent Context.
-	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param listener       The call back that will be run when the dialog is closed.
-	 */
-	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 0, mimes, 0, det, false, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select multiple files to be opened.
-	 *
-	 * @param parent         The parent Context.
-	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param listener       The call back that will be run when the dialog is closed.
-	 */
-	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 1, mimes, 0, det, false, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a file path to be saved.
-	 *
-	 * @param parent         The parent Context.
-	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param listener       The call back that will be run when the dialog is closed.
-	 */
-	public static void fileSave(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 3, mimes, 0, det, false, false, listener);
+	public static void fileSave(final Context parent, File startDirectory, FileDialogFilter[] filters, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, null, 3, filters, 0, null, 0, showHidden, false, listener);
 	}
 
 	/**
@@ -441,69 +389,139 @@ public abstract class FileDialog {
 	 * @param parent         The parent Context.
 	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
 	 * @param filename       The default filename.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param listener       The call back that will be run when the dialog is closed.
-	 */
-	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, int det, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, filename, 3, mimes, 0, det, false, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a single file to be opened.
-	 *
-	 * @param parent         The parent Context.
-	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+	 * @param filters        This parameter provides a set of filters.
 	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 0, mimes, 0, det, showHidden, false, listener);
+	public static void fileSave(final Context parent, File startDirectory, String filename, FileDialogFilter[] filters, boolean showHidden, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, filename, 3, filters, 0, null, 0, showHidden, false, listener);
 	}
 
-	/**
-	 * Open a dialog to select multiple files to be opened.
-	 *
-	 * @param parent         The parent Context.
-	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
-	 * @param listener       The call back that will be run when the dialog is closed.
-	 */
-	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 1, mimes, 0, det, showHidden, false, listener);
-	}
+//	/**
+//	 * Open a dialog to select a single file to be opened.
+//	 *
+//	 * @param parent         The parent Context.
+//	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+//	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param listener       The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
+//		fileDialog(parent, startDirectory, null, 0, mimes, 0, det, false, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select multiple files to be opened.
+//	 *
+//	 * @param parent         The parent Context.
+//	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+//	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param listener       The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
+//		fileDialog(parent, startDirectory, null, 1, mimes, 0, det, false, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a file path to be saved.
+//	 *
+//	 * @param parent         The parent Context.
+//	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+//	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param listener       The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileSave(final Context parent, File startDirectory, String[] mimes, int det, final OnFileTouchedListener listener) {
+//		fileDialog(parent, startDirectory, null, 3, mimes, 0, det, false, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a file path to be saved.
+//	 *
+//	 * @param parent         The parent Context.
+//	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+//	 * @param filename       The default filename.
+//	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param listener       The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, int det, final OnFileTouchedListener listener) {
+//		fileDialog(parent, startDirectory, filename, 3, mimes, 0, det, false, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a single file to be opened.
+//	 *
+//	 * @param parent         The parent Context.
+//	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+//	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
+//	 * @param listener       The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileOpen(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+//		fileDialog(parent, startDirectory, null, 0, mimes, 0, det, showHidden, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select multiple files to be opened.
+//	 *
+//	 * @param parent         The parent Context.
+//	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+//	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
+//	 * @param listener       The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileOpenMultiple(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+//		fileDialog(parent, startDirectory, null, 1, mimes, 0, det, showHidden, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a file path to be saved.
+//	 *
+//	 * @param parent         The parent Context.
+//	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+//	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
+//	 * @param listener       The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileSave(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+//		fileDialog(parent, startDirectory, null, 3, mimes, 0, det, showHidden, false, listener);
+//	}
+//
+//	/**
+//	 * Open a dialog to select a file path to be saved.
+//	 *
+//	 * @param parent         The parent Context.
+//	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
+//	 * @param filename       The default filename.
+//	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+//	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+//	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
+//	 * @param listener       The call back that will be run when the dialog is closed.
+//	 */
+//	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
+//		fileDialog(parent, startDirectory, filename, 3, mimes, 0, det, showHidden, false, listener);
+//	}
 
 	/**
-	 * Open a dialog to select a file path to be saved.
+	 * Open a dialog to select folder or files. All parameters are required using this method.
 	 *
 	 * @param parent         The parent Context.
-	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
+	 * @param startDirectory The directory the dialog will start with. If invalid, the dialog will start with the default SD card directory.
+	 * @param filename       The default filename for fileSave mode. It will be ignored in other modes.
+	 * @param mode           This parameter decides the type of the dialog. 0 for fileOpen, 1 for fileOpenMultiple, 2 for fileSelectDirectory, and 3 for fileSave.
+	 * @param filterIndex    This parameter provides the default position of filter spinner. Usually its value is 0, and it will be reset if an invalid value was passed.
+	 * @param filters        This parameter provides a set of filters.
 	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
+	 * @param ignoreReadOnly This parameter decides whether read-only status of a device will be ignored, for example, most of systems prevents third part apps from writing to external SD cards.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	public static void fileSave(final Context parent, File startDirectory, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, null, 3, mimes, 0, det, showHidden, false, listener);
-	}
-
-	/**
-	 * Open a dialog to select a file path to be saved.
-	 *
-	 * @param parent         The parent Context.
-	 * @param startDirectory The directory the dialog will start with. if invalid, the dialog will start with the default SD card directory.
-	 * @param filename       The default filename.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
-	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
-	 * @param listener       The call back that will be run when the dialog is closed.
-	 */
-	public static void fileSave(final Context parent, File startDirectory, String filename, String[] mimes, int det, boolean showHidden, final OnFileTouchedListener listener) {
-		fileDialog(parent, startDirectory, filename, 3, mimes, 0, det, showHidden, false, listener);
+	public static void fileDialog(final Context parent, File startDirectory, String filename, final int mode, int filterIndex, FileDialogFilter[] filters, final boolean showHidden, boolean ignoreReadOnly, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, filename, mode, filters, filterIndex, null, 0, showHidden, ignoreReadOnly, listener);
 	}
 
 	/**
@@ -513,17 +531,22 @@ public abstract class FileDialog {
 	 * @param startDirectory The directory the dialog will start with. If invalid, the dialog will start with the default SD card directory.
 	 * @param filename       The default filename for fileSave mode. It will be ignored in other modes.
 	 * @param mode           This parameter decides the type of the dialog. 0 for fileOpen, 1 for fileOpenMultiple, 2 for fileSelectDirectory, and 3 for fileSave.
+	 * @param filterIndex    This parameter provides the default position of filter spinner. Usually its value is 0, and it will be reset if an invalid value was passed.
 	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. The string array will be firstly trimmed,  if one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
-	 * @param mimeIndex      This parameter provides the default position of MIME types chooser spinner. Usually its value is 0, and it will be reset if an invalid value was passed.
 	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
 	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param ignoreReadOnly This parameter decides whether read-only status of a device will be ignored, for example, most of systems prevents third part apps from writing to external SD cards.
 	 * @param listener       The call back that will be run when the dialog is closed.
 	 */
-	@SuppressWarnings("WeakerAccess")
-	public static void fileDialog(final Context parent, File startDirectory, String filename, final int mode, String[] mimes, int mimeIndex, int det, final boolean showHidden, boolean ignoreReadOnly, final OnFileTouchedListener listener) {
+	public static void fileDialog(final Context parent, File startDirectory, String filename, final int mode, int filterIndex, String[] mimes, int det, final boolean showHidden, boolean ignoreReadOnly, final OnFileTouchedListener listener) {
+		fileDialog(parent, startDirectory, filename, mode, null, filterIndex, mimes, det, showHidden, ignoreReadOnly, listener);
+	}
+
+	//	private static void fileDialog(final Context parent, File startDirectory, String filename, final int mode, String[][] filters, int filterIndex, String[] mimes, int det, final boolean showHidden, boolean ignoreReadOnly, final OnFileTouchedListener listener) {
+	private static void fileDialog(final Context parent, File startDirectory, String filename, final int mode, FileDialogFilter[] filters, int filterIndex, String[] mimes, int det, final boolean showHidden, boolean ignoreReadOnly, final OnFileTouchedListener listener) {
 		final View view = LayoutInflater.from(parent).inflate(R.layout.file_dialog, null);
-		final String[] mimeTypes = MimeTypeUtil.trimMime(mimes);
+		String[] mimeTypes = null;
+		if (mimes != null) mimeTypes = MimeTypeUtil.trimMime(mimes);
 		final EditText fName = view.findViewById(R.id.save_f_name);
 		if (mode < 3) fName.setVisibility(View.GONE);
 		else if (filename != null && filename.length() > 0) fName.setText(filename);
@@ -537,15 +560,28 @@ public abstract class FileDialog {
 		Spinner spnExt = view.findViewById(R.id.spnExt);
 		if (mode == 2) spnExt.setVisibility(View.GONE);
 		else {
-			ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, MimeTypeUtil.getDescriptions(mimeTypes, det));
-			spinnerAdapter.setDropDownViewResource(R.layout.ext_slot);
-			spnExt.setAdapter(spinnerAdapter);
-			if (mimeIndex > 0 && mimeIndex < mimeTypes.length) spnExt.setSelection(mimeIndex);
-			if (mimeTypes.length == 1) spnExt.setEnabled(false);
+			if (mimeTypes != null) {
+				ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, MimeTypeUtil.getDescriptions(mimeTypes, det));
+				spinnerAdapter.setDropDownViewResource(R.layout.ext_slot);
+				spnExt.setAdapter(spinnerAdapter);
+				if (filterIndex > 0 && filterIndex < mimeTypes.length)
+					spnExt.setSelection(filterIndex);
+				if (mimeTypes.length == 1) spnExt.setEnabled(false);
+			} else if (filters != null) {
+				String[] fil = new String[filters.length];
+				for (int i = 0; i < filters.length; i++)
+					fil[i] = filters[i].name;
+				ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, fil);
+				spinnerAdapter.setDropDownViewResource(R.layout.ext_slot);
+				spnExt.setAdapter(spinnerAdapter);
+				if (filterIndex > 0 && filterIndex < filters.length)
+					spnExt.setSelection(filterIndex);
+				if (filters.length == 1) spnExt.setEnabled(false);
+			}
 		}
 		final RecyclerView dir = view.findViewById(R.id.diFileList);
 		dir.setLayoutManager(new LinearLayoutManager(view.getContext()));
-		final FileDialogAdapter dirAdapter = new FileDialogAdapter(view.getContext(), mimeTypes, startDirectory, mode == 1, mode == 2, showHidden, ignoreReadOnly);
+		final FileDialogAdapter dirAdapter = new FileDialogAdapter(view.getContext(), filters, filterIndex, mimeTypes, startDirectory, mode == 1, mode == 2, showHidden, ignoreReadOnly);
 		dir.setAdapter(dirAdapter);
 		final Button btnBack = view.findViewById(R.id.btnBack);
 		btnBack.setEnabled(dirAdapter.getDevices().length > 1 || !startDirectory.equals(Environment.getExternalStorageDirectory()));
@@ -631,7 +667,7 @@ public abstract class FileDialog {
 			spnExt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-					dirAdapter.setMimeIndex(position);
+					dirAdapter.setFilterIndex(position);
 					dirAdapter.reload();
 					dir.setAdapter(dirAdapter);
 				}
@@ -680,7 +716,6 @@ public abstract class FileDialog {
 				ok.setEnabled(true);
 			else ok.setEnabled(false);
 		}
-
 		ok.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -695,7 +730,9 @@ public abstract class FileDialog {
 					fileDialog.dismiss();
 				} else if (mode == 3) {
 					String fn = fName.getText().toString();
-					fn = MimeTypeUtil.formatFilename(fn, mimeTypes[dirAdapter.getMimeIndex()], -1);
+					String mmx = dirAdapter.mimeTypes != null ? dirAdapter.mimeTypes[dirAdapter.getFilterIndex()] : null;
+					FileDialogFilter ffx = dirAdapter.filters != null ? dirAdapter.filters[dirAdapter.getFilterIndex()] : null;
+					fn = mmx != null ? MimeTypeUtil.formatFilename(fn, mmx, 0) : ffx != null ? ffx.formatFilename(fn, 0) : fn;
 					String fPath = dirAdapter.getCurrentDir().getAbsolutePath() + '/' + fn;
 					final File of = new File(fPath);
 					if (of.exists()) {

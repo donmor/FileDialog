@@ -1,7 +1,8 @@
-package com.github.donmor3000.filedialog.lib.utils;
+package com.github.donmor3000.filedialog.lib;
 
-public abstract class MimeTypeUtil {
-	public static String getMIMEType(String filePath) {
+@SuppressWarnings("WeakerAccess")
+abstract class MimeTypeUtil {
+	static String getMIMEType(String filePath) {
 		String type = "*/*";
 		int dotIndex = filePath.lastIndexOf('.');
 		if (dotIndex < 0) {
@@ -13,7 +14,7 @@ public abstract class MimeTypeUtil {
 		return type;
 	}
 
-	public static String[] trimMime(String[] mimes) {
+	static String[] trimMime(String[] mimes) {
 		if (mimes == null) return new String[]{"*/*"};
 		String[] u = new String[MIME_MapTable.length];
 		int i = 0;
@@ -49,11 +50,11 @@ public abstract class MimeTypeUtil {
 	}
 
 	@SuppressWarnings("unused")
-	private static String[] trimMime(String mime) {
+	static String[] trimMime(String mime) {
 		return trimMime(new String[]{mime});
 	}
 
-	private static String[] getExtensions(String mime) {
+	static String[] getExtensions(String mime) {
 		String[] m = new String[MIME_MapTable.length];
 		int k = 0;
 		boolean all = false;
@@ -87,7 +88,7 @@ public abstract class MimeTypeUtil {
 		return x;
 	}
 
-	public static String[] getDescriptions(String[] mime, int det) {
+	static String[] getDescriptions(String[] mime, int det) {
 		if (det == 0) return mime;
 		String[] m = new String[mime.length];
 		int k = 0;
@@ -116,28 +117,28 @@ public abstract class MimeTypeUtil {
 		return x;
 	}
 
-	public static boolean meetsMimeTypes(String fn, String mime) {
+	static boolean meetsMimeTypes(String fn, String mime) {
 		for (String s : getExtensions(mime))
 			if (s.equals(".*") || fn.toLowerCase().endsWith(s)) return true;
 		return false;
 	}
 
 	@SuppressWarnings("WeakerAccess")
-	public static String getRootFromAlias(String mime) {
+	static String getRootFromAlias(String mime) {
 		for (String[] i : MIME_MapAlias)
 			if (i[1].equals(mime))
 				return i[0];
 		return null;
 	}
 
-	public static String formatFilename(String fn, String mimes, int index) {
+	static String formatFilename(String fn, String mimes, int index) {
 		if (mimes.charAt(mimes.indexOf('/') + 1) == '*') return fn;
 		String[] ext = getExtensions(mimes);
 		for (String ex : ext)
 			if (fn.endsWith(ex)) return fn;
 		if (ext.length > 0) {
-			if (index == -1)
-				return fn + ext[ext.length - 1];
+			if (index <0 && ext.length-index>=0 )
+				return fn + ext[ext.length - index];
 			else if (index >= 0 && index < ext.length)
 				return fn + ext[index];
 			else
@@ -146,7 +147,7 @@ public abstract class MimeTypeUtil {
 		return fn;
 	}
 
-	public static void traceAll() {
+	static void traceAll() {
 		for (String[] i : MIME_MapTable) {
 			System.out.println(i[0]);
 			System.out.println(i[1]);
