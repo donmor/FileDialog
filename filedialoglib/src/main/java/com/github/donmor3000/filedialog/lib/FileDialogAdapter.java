@@ -30,13 +30,13 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 	final FileDialogFilter[] filters;
 	private final LayoutInflater inflater;
 
-	FileDialogAdapter(Context context, FileDialogFilter[] filters, int filterIndex, String[] mimeTypes, File dir, boolean multiSelect, boolean dirOnly, boolean showHidden, boolean ignoreReadOnly) {
+	FileDialogAdapter(Context context, FileDialogFilter[] filters, int filterIndex, String[] mimeTypes,MimeTypeMap mimeTypeMap, File dir, boolean multiSelect, boolean dirOnly, boolean showHidden, boolean ignoreReadOnly) {
 		this.context = context;
 		this.multiSelect = multiSelect;
 		this.dirOnly = dirOnly;
 		this.showHidden = showHidden;
 		this.ignoreReadOnly = ignoreReadOnly;
-		mimeTypeMap = MimeTypeMap.getSingleton();
+		this.mimeTypeMap = mimeTypeMap;
 		this.mimeTypes = mimeTypes;
 		this.filters = filters;
 		this.filterIndex = filterIndex;
@@ -158,16 +158,14 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		return currentDir.listFiles(new FileFilter() {
 			@Override
 			public boolean accept(File pathname) {
-				if (mimeTypes != null) {
-//					return !(pathname.isHidden() && showHidden) && pathname.isFile() && MimeTypeUtil.meetsMimeTypes(pathname.getName(), mimeTypes[filterIndex]);
-					if (!(pathname.isHidden() && showHidden) && pathname.isFile()) {
-						String ext = MimeTypeMap.getFileExtensionFromUrl(pathname.getName());
-						String m = mimeTypeMap.getMimeTypeFromExtension(ext);
-						if (mimeTypes[filterIndex].equals("*/*"))return true;
-						else return mimeTypes[filterIndex].equals(m);
-					}else return false;
-				}
-				else return !(pathname.isHidden() && showHidden) && pathname.isFile() && filters[filterIndex].meetExtensions(pathname.getName());
+				if (mimeTypes != null)
+					if (!(pathname.isHidden() && showHidden) && pathname.isFile())
+						if (mimeTypes[filterIndex].equals("*/*")) return true;
+						else
+							return mimeTypes[filterIndex].equals(mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(pathname.getName())));
+					else return false;
+				else
+					return !(pathname.isHidden() && showHidden) && pathname.isFile() && filters[filterIndex].meetExtensions(pathname.getName());
 			}
 		});
 	}

@@ -3,7 +3,6 @@ package com.github.donmor3000.filedialog;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
-import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -93,23 +92,6 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				FileDialog.fileSave(MainActivity.this, new FileDialogFilter[]{new FileDialogFilter(".html;.htm", new String[]{".html", ".htm"}),new FileDialogFilter("*", new String[]{"*"})}, true, new FileDialog.OnFileTouchedListener() {
-					@Override
-					public void onFileTouched(File[] files) {
-						for (File f : files)
-							Toast.makeText(MainActivity.this, f.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-					}
-
-					@Override
-					public void onCanceled() {
-						Toast.makeText(MainActivity.this, "CANCELLED", Toast.LENGTH_SHORT).show();
-					}
-				});
-			}
-		});
-		btn4.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				FileDialog.fileDialog(MainActivity.this, Environment.getExternalStorageDirectory(),"123.html",3,0,new String[]{"text/html","*/*"},0,true, true, new FileDialog.OnFileTouchedListener() {
 					@Override
 					public void onFileTouched(File[] files) {
 						for (File f : files)

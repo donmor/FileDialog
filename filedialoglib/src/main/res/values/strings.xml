@@ -1,5 +1,5 @@
-<resources>
-    <string name="app_name" translatable="false">FileDialogLib</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false" tools:ignore="UnusedResources">FileDialogLib</string>
     <string name="parent_dir" translatable="false">..</string>
     <string name="new_folder">New Folder</string>
     <string name="filename">Filename</string>

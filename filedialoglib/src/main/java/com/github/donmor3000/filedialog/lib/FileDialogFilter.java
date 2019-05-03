@@ -8,11 +8,11 @@ public class FileDialogFilter {
 	/**
 	 * The name of the filter.
 	 */
-	public String name;
+	public final String name;
 	/**
 	 * The extension names related.
 	 */
-	public String[] extensions;
+	public final String[] extensions;
 
 	/**
 	 * Instantiates a new File dialog filter.
@@ -31,24 +31,10 @@ public class FileDialogFilter {
 	 * @param filename The filename to check.
 	 * @return         The value will be true if the extension of the file equals one of extensions, or false if the extension of the file equals nothing.
 	 */
-	public boolean meetExtensions(String filename) {
+	public boolean meetExtensions(String filename) throws ArrayIndexOutOfBoundsException {
 		if (extensions[0].equals("*")) return true;
 		for (String e : extensions)
 			if (filename.toLowerCase().endsWith(e)) return true;
 		return false;
-	}
-
-	/**
-	 * Format filename string.
-	 *
-	 * @param filename The original filename.
-	 * @param index    The index in extensions. Accepts value that < 0 (will index from the end of extension). It will be reset to 0 if an invalid value passed in.
-	 * @return         The new filename string.
-	 */
-	public String formatFilename(String filename, int index) {
-		if (index < 0 && extensions.length - index >= 0) index = extensions.length - index;
-		else if (index >= extensions.length || extensions.length - index < 0) index = 0;
-		if (meetExtensions(filename)) return filename;
-		else return filename + extensions[index];
 	}
 }
