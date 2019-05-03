@@ -346,7 +346,7 @@ public abstract class FileDialog {
 					i++;
 				}
 			}
-			if (vAll) {
+			if (vAll || i==0) {
 				vMime[i] = "*/*";
 				i++;
 			}
@@ -413,7 +413,7 @@ public abstract class FileDialog {
 		}
 		final RecyclerView dir = view.findViewById(R.id.diFileList);
 		dir.setLayoutManager(new LinearLayoutManager(view.getContext()));
-		final FileDialogAdapter dirAdapter = new FileDialogAdapter(view.getContext(), filters, spnExt.getSelectedItemPosition(), mimeTypes,mimeTypeMap, startDirectory, mode == 1, mode == 2, showHidden, ignoreReadOnly);
+		final FileDialogAdapter dirAdapter = new FileDialogAdapter(view.getContext(), filters, spnExt.getSelectedItemPosition(), mimeTypes, mimeTypeMap, startDirectory, mode == 1, mode == 2, showHidden, ignoreReadOnly);
 		dir.setAdapter(dirAdapter);
 		final Button btnBack = view.findViewById(R.id.btnBack);
 		btnBack.setEnabled(dirAdapter.getDevices().length > 1 || !startDirectory.equals(Environment.getExternalStorageDirectory()));
