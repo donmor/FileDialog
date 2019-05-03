@@ -7,11 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-
-//import com.github.donmor3000.filedialog.lib.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -26,17 +25,18 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 	private final boolean multiSelect, dirOnly, showHidden, ignoreReadOnly;
 	private int filterIndex;
 	private final Context context;
+	private final MimeTypeMap mimeTypeMap;
 	final String[] mimeTypes;
 	final FileDialogFilter[] filters;
 	private final LayoutInflater inflater;
 
-	//	FileDialogAdapter(Context context, String[][] filters, int filterIndex, String[] mimeTypes, File dir, boolean multiSelect, boolean dirOnly, boolean showHidden, boolean ignoreReadOnly) {
 	FileDialogAdapter(Context context, FileDialogFilter[] filters, int filterIndex, String[] mimeTypes, File dir, boolean multiSelect, boolean dirOnly, boolean showHidden, boolean ignoreReadOnly) {
 		this.context = context;
 		this.multiSelect = multiSelect;
 		this.dirOnly = dirOnly;
 		this.showHidden = showHidden;
 		this.ignoreReadOnly = ignoreReadOnly;
+		mimeTypeMap = MimeTypeMap.getSingleton();
 		this.mimeTypes = mimeTypes;
 		this.filters = filters;
 		this.filterIndex = filterIndex;
@@ -140,7 +140,7 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		void onItemClick(int position);
 	}
 
-	public void setOnItemClickListener(ItemClickListener itemClickListener) {
+	void setOnItemClickListener(ItemClickListener itemClickListener) {
 		this.mItemClickListener = itemClickListener;
 
 	}
@@ -158,11 +158,16 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		return currentDir.listFiles(new FileFilter() {
 			@Override
 			public boolean accept(File pathname) {
-				if (mimeTypes != null)
-					return !(pathname.isHidden() && showHidden) && pathname.isFile() && MimeTypeUtil.meetsMimeTypes(pathname.getName(), mimeTypes[filterIndex]);
-				else {
-					return !(pathname.isHidden() && showHidden) && pathname.isFile() && filters[filterIndex].meetExtensions(pathname.getName());
+				if (mimeTypes != null) {
+//					return !(pathname.isHidden() && showHidden) && pathname.isFile() && MimeTypeUtil.meetsMimeTypes(pathname.getName(), mimeTypes[filterIndex]);
+					if (!(pathname.isHidden() && showHidden) && pathname.isFile()) {
+						String ext = MimeTypeMap.getFileExtensionFromUrl(pathname.getName());
+						String m = mimeTypeMap.getMimeTypeFromExtension(ext);
+						if (mimeTypes[filterIndex].equals("*/*"))return true;
+						else return mimeTypes[filterIndex].equals(m);
+					}else return false;
 				}
+				else return !(pathname.isHidden() && showHidden) && pathname.isFile() && filters[filterIndex].meetExtensions(pathname.getName());
 			}
 		});
 	}
@@ -191,15 +196,15 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		return false;
 	}
 
-	public void setFilterIndex(int index) {
+	void setFilterIndex(int index) {
 		filterIndex = index;
 	}
 
-	public int getFilterIndex() {
+	int getFilterIndex() {
 		return filterIndex;
 	}
 
-	public File getFile(int position) {
+	File getFile(int position) {
 		if (enRoot) return devices[position];
 		else {
 			if (position < dirs.length) {
@@ -210,7 +215,7 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		}
 	}
 
-	public File[] getSelectedFiles() {
+	File[] getSelectedFiles() {
 		if (enRoot) return new File[0];
 		else {
 			File[] files1 = new File[files.length];
@@ -226,19 +231,19 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		}
 	}
 
-	public File[] getDevices() {
+	File[] getDevices() {
 		return devices;
 	}
 
-	public File getCurrentDir() {
+	File getCurrentDir() {
 		return currentDir;
 	}
 
-	public File getRootDir() {
+	File getRootDir() {
 		return rootDir;
 	}
 
-	public File getParentDir() {
+	File getParentDir() {
 		for (File dev : devices) {
 			if (dev.equals(currentDir)) {
 				return null;
@@ -247,7 +252,7 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		return currentDir.getParentFile();
 	}
 
-	public void setDir(File dir) {
+	void setDir(File dir) {
 		try {
 			currentDir = dir;
 			if (!currentDir.isDirectory()) throw new Exception();
@@ -261,20 +266,21 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		enRoot = false;
 	}
 
-	public void setRoot() {
+	void setRoot() {
 		devices = FileDialog.getStorage(context.getApplicationContext(), ignoreReadOnly);
 		selected = new boolean[0];
 		enRoot = true;
 	}
 
-	public void reload() {
+	void reload() {
 		if (!enRoot) {
 			dirs = sortFile(getDirs());
 			if (dirOnly) files = new File[0];
 			else files = sortFile(getFiles());
 			if (files != null) selected = new boolean[files.length];
-		}else{
+		} else {
 			devices = FileDialog.getStorage(context.getApplicationContext(), ignoreReadOnly);
-			selected = new boolean[0];		}
+			selected = new boolean[0];
+		}
 	}
 }

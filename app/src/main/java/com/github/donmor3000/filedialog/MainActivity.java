@@ -3,11 +3,13 @@ package com.github.donmor3000.filedialog;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -24,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		checkPermission();
+
+		MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+		System.out.println(mimeTypeMap.hasMimeType("text/*"));
+		System.out.println(mimeTypeMap.getExtensionFromMimeType("text/*"));
+		System.out.println(MimeTypeMap.getFileExtensionFromUrl("123.html"));
+
 
 		Button btn1 = findViewById(R.id.button);
 		Button btn2 = findViewById(R.id.button2);
@@ -85,6 +93,23 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				FileDialog.fileSave(MainActivity.this, new FileDialogFilter[]{new FileDialogFilter(".html;.htm", new String[]{".html", ".htm"}),new FileDialogFilter("*", new String[]{"*"})}, true, new FileDialog.OnFileTouchedListener() {
+					@Override
+					public void onFileTouched(File[] files) {
+						for (File f : files)
+							Toast.makeText(MainActivity.this, f.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void onCanceled() {
+						Toast.makeText(MainActivity.this, "CANCELLED", Toast.LENGTH_SHORT).show();
+					}
+				});
+			}
+		});
+		btn4.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				FileDialog.fileDialog(MainActivity.this, Environment.getExternalStorageDirectory(),"123.html",3,0,new String[]{"text/html","*/*"},0,true, true, new FileDialog.OnFileTouchedListener() {
 					@Override
 					public void onFileTouched(File[] files) {
 						for (File f : files)

@@ -119,7 +119,7 @@ abstract class MimeTypeUtil {
 
 	static boolean meetsMimeTypes(String fn, String mime) {
 		for (String s : getExtensions(mime))
-			if (s.equals(".*") || fn.toLowerCase().endsWith(s)) return true;
+			if (mime.equals("*/*") || fn.toLowerCase().endsWith(s)) return true;
 		return false;
 	}
 

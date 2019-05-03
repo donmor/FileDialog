@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -546,7 +547,27 @@ public abstract class FileDialog {
 	private static void fileDialog(final Context parent, File startDirectory, String filename, final int mode, FileDialogFilter[] filters, int filterIndex, String[] mimes, int det, final boolean showHidden, boolean ignoreReadOnly, final OnFileTouchedListener listener) {
 		final View view = LayoutInflater.from(parent).inflate(R.layout.file_dialog, null);
 		String[] mimeTypes = null;
-		if (mimes != null) mimeTypes = MimeTypeUtil.trimMime(mimes);
+		final MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+		if (mimes != null) {
+			boolean vAll = false;
+			String[] vMime = new String[mimes.length];
+			int i = 0;
+			for (String v : mimes) {
+				if (v.equals("*/*")) vAll = true;
+				else if (mimeTypeMap.hasMimeType(v)) {
+					vMime[i] = v;
+					i++;
+				}
+			}
+			if (vAll) {
+				vMime[i] = "*/*";
+				i++;
+			}
+			String[] xm = new String[i];
+			System.arraycopy(vMime, 0, xm, 0, i);
+			mimeTypes = xm;
+		}
+//		if (mimes != null) mimeTypes = MimeTypeUtil.trimMime(mimes);
 		final EditText fName = view.findViewById(R.id.save_f_name);
 		if (mode < 3) fName.setVisibility(View.GONE);
 		else if (filename != null && filename.length() > 0) fName.setText(filename);
@@ -560,28 +581,54 @@ public abstract class FileDialog {
 		Spinner spnExt = view.findViewById(R.id.spnExt);
 		if (mode == 2) spnExt.setVisibility(View.GONE);
 		else {
+			ArrayAdapter<String> spinnerAdapter;
 			if (mimeTypes != null) {
-				ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, MimeTypeUtil.getDescriptions(mimeTypes, det));
+				switch (det) {
+					case 0:
+						spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, mimeTypes);
+						break;
+					case 1:
+						String[] des = new String[mimeTypes.length];
+						for (int i = 0; i < mimeTypes.length; i++) {
+							if (mimeTypes[i].equals("*/*"))
+								des[i] = '.' + mimeTypeMap.getExtensionFromMimeType(mimeTypes[i]);
+						}
+						spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, des);
+						break;
+					case 2:
+						String[] desc = new String[mimeTypes.length];
+						for (int i = 0; i < mimeTypes.length; i++) {
+							if (mimeTypes[i].equals("*/*"))
+								desc[i] = desc[i] + '(' + '.' + mimeTypeMap.getExtensionFromMimeType(mimeTypes[i]) + ')';
+						}
+						spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, desc);
+						break;
+					default:
+						spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, mimeTypes);
+						break;
+				}
+
+//				spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, MimeTypeUtil.getDescriptions(mimeTypes, det));
 				spinnerAdapter.setDropDownViewResource(R.layout.ext_slot);
 				spnExt.setAdapter(spinnerAdapter);
 				if (filterIndex > 0 && filterIndex < mimeTypes.length)
 					spnExt.setSelection(filterIndex);
-				if (mimeTypes.length == 1) spnExt.setEnabled(false);
+				if (mimeTypes.length < 2) spnExt.setEnabled(false);
 			} else if (filters != null) {
 				String[] fil = new String[filters.length];
 				for (int i = 0; i < filters.length; i++)
 					fil[i] = filters[i].name;
-				ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, fil);
+				spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, fil);
 				spinnerAdapter.setDropDownViewResource(R.layout.ext_slot);
 				spnExt.setAdapter(spinnerAdapter);
 				if (filterIndex > 0 && filterIndex < filters.length)
 					spnExt.setSelection(filterIndex);
-				if (filters.length == 1) spnExt.setEnabled(false);
+				if (filters.length < 2) spnExt.setEnabled(false);
 			}
 		}
 		final RecyclerView dir = view.findViewById(R.id.diFileList);
 		dir.setLayoutManager(new LinearLayoutManager(view.getContext()));
-		final FileDialogAdapter dirAdapter = new FileDialogAdapter(view.getContext(), filters, filterIndex, mimeTypes, startDirectory, mode == 1, mode == 2, showHidden, ignoreReadOnly);
+		final FileDialogAdapter dirAdapter = new FileDialogAdapter(view.getContext(), filters, spnExt.getSelectedItemPosition(), mimeTypes, startDirectory, mode == 1, mode == 2, showHidden, ignoreReadOnly);
 		dir.setAdapter(dirAdapter);
 		final Button btnBack = view.findViewById(R.id.btnBack);
 		btnBack.setEnabled(dirAdapter.getDevices().length > 1 || !startDirectory.equals(Environment.getExternalStorageDirectory()));
@@ -732,7 +779,8 @@ public abstract class FileDialog {
 					String fn = fName.getText().toString();
 					String mmx = dirAdapter.mimeTypes != null ? dirAdapter.mimeTypes[dirAdapter.getFilterIndex()] : null;
 					FileDialogFilter ffx = dirAdapter.filters != null ? dirAdapter.filters[dirAdapter.getFilterIndex()] : null;
-					fn = mmx != null ? MimeTypeUtil.formatFilename(fn, mmx, 0) : ffx != null ? ffx.formatFilename(fn, 0) : fn;
+					fn = mmx != null ? (mmx.equals("*/*") || mmx.equals(mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(fn))) ? fn : fn + '.' + mimeTypeMap.getExtensionFromMimeType(mmx)) : ffx != null ? ffx.formatFilename(fn, 0) : fn;
+//					fn = mmx != null ? MimeTypeUtil.formatFilename(fn, mmx, 0) : ffx != null ? ffx.formatFilename(fn, 0) : fn;
 					String fPath = dirAdapter.getCurrentDir().getAbsolutePath() + '/' + fn;
 					final File of = new File(fPath);
 					if (of.exists()) {
