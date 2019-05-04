@@ -18,7 +18,7 @@ public class FileDialogFilter {
 	 * Instantiates a new File dialog filter.
 	 *
 	 * @param name       The name of the filter.
-	 * @param extensions The extensions array. It should be formatted like { ".extension1", ".extension2", ... }. The extension can be like ".ext1.ext2". Use { "*" } for all types.
+	 * @param extensions The extensions array. It should be formatted like { ".extension1", ".extension2", ... }. The extension can be like ".ext1.ext2". Use { "*" } for all types. The first extension in array will be used as default to create new files.
 	 */
 	public FileDialogFilter(String name, String[] extensions) {
 		this.name = name;

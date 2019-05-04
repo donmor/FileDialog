@@ -32,7 +32,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 
 /**
- * The class FileDialog provides a set of methods to open dialogs for file-operating. Make sure that WRITE_EXTERNAL_STORAGE permission of the app have been set to GRANTED if API level is higher than 22, and "android.defaultConfig.vectorDrawables.useSupportLibrary = true" should be added into build.gradle of the app if API level is lower than 21.
+ * The class FileDialog provides a set of methods to open dialogs for file-operating. It contains a set of static methods opening AlertDialogs to choose files or a directory, and a callback providing a java.io.File array contains files or directory chosen for further usages. Make sure that WRITE_EXTERNAL_STORAGE permission of the app have been set to GRANTED if API level is higher than 22, and "android.defaultConfig.vectorDrawables.useSupportLibrary = true" should be added into build.gradle of the app if API level is lower than 21.
  */
 @SuppressWarnings("WeakerAccess")
 public abstract class FileDialog {
@@ -346,7 +346,7 @@ public abstract class FileDialog {
 					i++;
 				}
 			}
-			if (vAll || i==0) {
+			if (vAll || i == 0) {
 				vMime[i] = "*/*";
 				i++;
 			}
@@ -774,6 +774,11 @@ public abstract class FileDialog {
 		}
 		return null;
 	}
+
+	/**
+	 * This FileDialogFilter accepts all kinds of files.
+	 */
+	public static FileDialogFilter ALL = new FileDialogFilter("*", new String[]{"*"});
 
 	private static boolean illegalFilename(CharSequence e) {
 		String v = e.toString();
