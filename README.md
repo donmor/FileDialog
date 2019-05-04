@@ -43,7 +43,8 @@ The library is published with a demo app. Here is a part of the MainActivity.jav
 		});
 		btn2.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {// Example of fileOpenMultiple, the fileDialogFilters is passed in.
+			public void onClick(View v) {
+			    // Example of fileOpenMultiple, the fileDialogFilters is passed in.
 				FileDialog.fileOpenMultiple(MainActivity.this, fileDialogFilters, new FileDialog.OnFileTouchedListener() {
 					@Override
 					public void onFileTouched(File[] files) {
@@ -60,7 +61,8 @@ The library is published with a demo app. Here is a part of the MainActivity.jav
 		});
 		btn3.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {// Example of fileSelectDirectory.
+			public void onClick(View v) {
+			    // Example of fileSelectDirectory.
 				FileDialog.fileSelectDirectory(MainActivity.this, new FileDialog.OnFileTouchedListener() {
 					@Override
 					public void onFileTouched(File[] files) {
@@ -77,7 +79,8 @@ The library is published with a demo app. Here is a part of the MainActivity.jav
 		});
 		btn4.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {// Example of fileSave, the fileDialogFilters is passed in.
+			public void onClick(View v) {
+			    // Example of fileSave, the fileDialogFilters is passed in.
 				FileDialog.fileSave(MainActivity.this, fileDialogFilters, new FileDialog.OnFileTouchedListener() {
 					@Override
 					public void onFileTouched(File[] files) {
