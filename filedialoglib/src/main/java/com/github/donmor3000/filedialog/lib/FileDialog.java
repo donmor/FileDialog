@@ -321,7 +321,7 @@ public abstract class FileDialog {
 	 * @param filename       The default filename for fileSave mode. It will be ignored in other modes.
 	 * @param mode           This parameter decides the type of the dialog. 0 for fileOpen, 1 for fileOpenMultiple, 2 for fileSelectDirectory, and 3 for fileSave.
 	 * @param filterIndex    This parameter provides the default position of filter spinner. Usually its value is 0, and it will be reset if an invalid value was passed.
-	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. The string array will be firstly trimmed,  if one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in. If one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
+	 * @param mimes          The MIME types strings. Each String should be formatted like "type/subtype". Use "&#42;/&#42;" for all types. The string array will be firstly trimmed, if one of the strings matches none of common MIME types, it will be ignored, and "&#42;/&#42;" will be used if no valid string passed in.
 	 * @param det            The detail level of mime-type filter. 0 for original MIME types strings, 1 for all of the extensions matches the MIME types, and 2 for both(not recommend because the filter spinner could be too long).
 	 * @param showHidden     This parameter decides whether hidden(starts with '.') files could be shown or be created.
 	 * @param ignoreReadOnly This parameter decides whether read-only status of a device will be ignored, for example, most of systems prevents third part apps from writing to external SD cards.
