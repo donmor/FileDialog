@@ -160,7 +160,7 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 			public boolean accept(File pathname) {
 				if (mimeTypes != null)
 					if (!(pathname.isHidden() && showHidden) && pathname.isFile())
-						if (mimeTypes[filterIndex].equals("*/*")) return true;
+						if (mimeTypes[filterIndex].equals(FileDialog.MIME_ALL)) return true;
 						else
 							return mimeTypes[filterIndex].equals(mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(pathname.getName())));
 					else return false;

@@ -38,6 +38,13 @@ import java.lang.reflect.Method;
 public abstract class FileDialog {
 
 	/**
+	 * The constant MIME_ALL(&#42;/&#42;).
+	 */
+	public static final String MIME_ALL = "*/*";
+
+	private static final String METHOD_GET_VOLUME_PATHS = "getVolumePaths", STR_EMPTY = "";
+
+	/**
 	 * The call back that will be run when the dialog is closed.
 	 */
 	public interface OnFileTouchedListener {
@@ -340,14 +347,14 @@ public abstract class FileDialog {
 			String[] vMime = new String[mimes.length];
 			int i = 0;
 			for (String v : mimes) {
-				if (v.equals("*/*")) vAll = true;
+				if (v.equals(MIME_ALL)) vAll = true;
 				else if (mimeTypeMap.hasMimeType(v)) {
 					vMime[i] = v;
 					i++;
 				}
 			}
 			if (vAll || i == 0) {
-				vMime[i] = "*/*";
+				vMime[i] = MIME_ALL;
 				i++;
 			}
 			String[] xm = new String[i];
@@ -376,7 +383,7 @@ public abstract class FileDialog {
 					case 1:
 						String[] des = new String[mimeTypes.length];
 						for (int i = 0; i < mimeTypes.length; i++) {
-							if (mimeTypes[i].equals("*/*"))
+							if (mimeTypes[i].equals(MIME_ALL))
 								des[i] = '.' + mimeTypeMap.getExtensionFromMimeType(mimeTypes[i]);
 						}
 						spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, des);
@@ -384,7 +391,7 @@ public abstract class FileDialog {
 					case 2:
 						String[] desc = new String[mimeTypes.length];
 						for (int i = 0; i < mimeTypes.length; i++) {
-							if (mimeTypes[i].equals("*/*"))
+							if (mimeTypes[i].equals(MIME_ALL))
 								desc[i] = desc[i] + '(' + '.' + mimeTypeMap.getExtensionFromMimeType(mimeTypes[i]) + ')';
 						}
 						spinnerAdapter = new ArrayAdapter<>(view.getContext(), R.layout.ext_slot, desc);
@@ -461,7 +468,7 @@ public abstract class FileDialog {
 
 					@Override
 					public void afterTextChanged(Editable s) {
-						if (editText.getText().toString().startsWith(".")) {
+						if (editText.getText().toString().indexOf('.') == 0) {
 							try {
 								if (showHidden) {
 									okx.setEnabled(false);
@@ -472,7 +479,7 @@ public abstract class FileDialog {
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
-						} else if (editText.getText().toString().startsWith("+") || editText.getText().toString().startsWith("-")) {
+						} else if (editText.getText().toString().indexOf('+') == 0 || editText.getText().toString().indexOf('-') == 0) {
 							okx.setEnabled(false);
 							Toast.makeText(view1.getContext(), R.string.filename_cannot_begin_with, Toast.LENGTH_SHORT).show();
 						} else if (illegalFilename(editText.getText().toString())) {
@@ -537,11 +544,11 @@ public abstract class FileDialog {
 		if (mode == 1) ok.setEnabled(false);
 		else if (mode == 2) ok.setEnabled(true);
 		else if (mode == 3) {
-			if (fName.getText().toString().startsWith(".")) {
+			if (fName.getText().toString().indexOf('.')==0) {
 				if (showHidden || fName.getText().toString().substring(1).length() == 0)
 					ok.setEnabled(false);
 				else ok.setEnabled(true);
-			} else if (fName.getText().toString().startsWith("+") || fName.getText().toString().startsWith("-") || illegalFilename(fName.getText().toString())) {
+			} else if (fName.getText().toString().indexOf('+')==0 || fName.getText().toString().indexOf('-')==0 || illegalFilename(fName.getText().toString())) {
 				ok.setEnabled(false);
 			} else if (fName.getText().toString().length() > 0)
 				ok.setEnabled(true);
@@ -573,7 +580,7 @@ public abstract class FileDialog {
 							null;
 					fn = mmx != null
 							?
-							(mmx.equals("*/*") || mmx.equals(mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(fn)))
+							(mmx.equals(MIME_ALL) || mmx.equals(mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(fn)))
 									?
 									fn
 									:
@@ -621,11 +628,11 @@ public abstract class FileDialog {
 					if (mode == 1) ok.setEnabled(false);
 					else if (mode == 2) ok.setEnabled(true);
 					else if (mode == 3) {
-						if (fName.getText().toString().startsWith(".")) {
+						if (fName.getText().toString().indexOf('.') == 0) {
 							if (showHidden || fName.getText().toString().substring(1).length() == 0)
 								ok.setEnabled(false);
 							else ok.setEnabled(true);
-						} else if (fName.getText().toString().startsWith("+") || fName.getText().toString().startsWith("-") || illegalFilename(fName.getText().toString())) {
+						} else if (fName.getText().toString().indexOf('+') == 0 || fName.getText().toString().indexOf('-') == 0 || illegalFilename(fName.getText().toString())) {
 							ok.setEnabled(false);
 						} else if (fName.getText().toString().length() > 0)
 							ok.setEnabled(true);
@@ -636,7 +643,7 @@ public abstract class FileDialog {
 				} else {
 					dirAdapter.setRoot();
 					dir.setAdapter(dirAdapter);
-					lblPath.setText("");
+					lblPath.setText(STR_EMPTY);
 					btnBack.setEnabled(false);
 					ok.setEnabled(false);
 				}
@@ -654,11 +661,11 @@ public abstract class FileDialog {
 					if (mode == 1) ok.setEnabled(false);
 					else if (mode == 2) ok.setEnabled(true);
 					else if (mode == 3) {
-						if (fName.getText().toString().startsWith(".")) {
+						if (fName.getText().toString().indexOf('.')==0) {
 							if (showHidden || fName.getText().toString().substring(1).length() == 0)
 								ok.setEnabled(false);
 							else ok.setEnabled(true);
-						} else if (fName.getText().toString().startsWith("+") || fName.getText().toString().startsWith("-") || illegalFilename(fName.getText().toString())) {
+						} else if (fName.getText().toString().indexOf('+')==0 || fName.getText().toString().indexOf('-')==0 || illegalFilename(fName.getText().toString())) {
 							ok.setEnabled(false);
 						} else if (fName.getText().toString().length() > 0)
 							ok.setEnabled(true);
@@ -696,14 +703,14 @@ public abstract class FileDialog {
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				if (fName.getText().toString().startsWith(".")) {
+				if (fName.getText().toString().indexOf('.')==0) {
 					if (showHidden) {
 						ok.setEnabled(false);
 						Toast.makeText(view.getContext(), R.string.cannot_create_hidden_files, Toast.LENGTH_SHORT).show();
 					} else if (fName.getText().toString().substring(1).length() == 0)
 						ok.setEnabled(false);
 					else ok.setEnabled(true);
-				} else if (fName.getText().toString().startsWith("+") || fName.getText().toString().startsWith("-")) {
+				} else if (fName.getText().toString().indexOf('+')==0 || fName.getText().toString().indexOf('-')==0) {
 					ok.setEnabled(false);
 					Toast.makeText(view.getContext(), R.string.filename_cannot_begin_with, Toast.LENGTH_SHORT).show();
 				} else if (illegalFilename(fName.getText().toString())) {
@@ -737,7 +744,7 @@ public abstract class FileDialog {
 	public static File[] getStorage(Context context, boolean ignoreReadOnly) {
 		StorageManager storageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
 		try {
-			Method method = StorageManager.class.getDeclaredMethod("getVolumePaths");
+			Method method = StorageManager.class.getDeclaredMethod(METHOD_GET_VOLUME_PATHS);
 			method.setAccessible(true);
 			Object result = method.invoke(storageManager);
 			if (result instanceof String[]) {
@@ -778,7 +785,7 @@ public abstract class FileDialog {
 	/**
 	 * This FileDialogFilter accepts all kinds of files.
 	 */
-	public static FileDialogFilter ALL = new FileDialogFilter("*", new String[]{"*"});
+	public static final FileDialogFilter ALL = new FileDialogFilter("*", new String[]{"*"});
 
 	private static boolean illegalFilename(CharSequence e) {
 		String v = e.toString();
