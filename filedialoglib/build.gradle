@@ -79,7 +79,7 @@ publish {
     repoName = 'FileDialog'
     groupId = 'com.github.donmor'
     artifactId = 'filedialog'
-    publishVersion = '1.0.' + getVersionCode()
+    publishVersion = '1.0'
     desc = 'A static file dialog module'
     website = 'https://github.com/donmor/FileDialog'
 }
