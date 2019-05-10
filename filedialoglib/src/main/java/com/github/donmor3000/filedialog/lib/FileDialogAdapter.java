@@ -1,3 +1,9 @@
+/*
+ * com.github.donmor3000.filedialog.lib.FileDialogAdapter <= [P|FileDialog]
+ * Last modified: 15:32:28 2019/05/10
+ * Copyright (c) 2019 donmor
+ */
+
 package com.github.donmor3000.filedialog.lib;
 
 import android.content.Context;

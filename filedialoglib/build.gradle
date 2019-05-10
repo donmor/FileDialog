@@ -47,12 +47,39 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 }
 
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('locale', 'en')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+task generateJavadocsJar(type: Jar, dependsOn: generateJavadocs) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
+}
+
 publish {
     userOrg = 'donmor3000'
     repoName = 'FileDialog'
     groupId = 'com.github.donmor'
     artifactId = 'filedialog'
-    publishVersion = '1.0.'+ getVersionCode()
+    publishVersion = '1.0.' + getVersionCode()
     desc = 'A static file dialog module'
     website = 'https://github.com/donmor/FileDialog'
 }
