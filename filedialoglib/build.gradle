@@ -74,12 +74,21 @@ artifacts {
     archives generateSourcesJar
 }
 
+def properties = new Properties()
+def inputStream = project.rootProject.file('local.properties').newDataInputStream()
+properties.load(inputStream)
+
 publish {
     userOrg = 'donmor3000'
     repoName = 'FileDialog'
     groupId = 'com.github.donmor'
     artifactId = 'filedialog'
     publishVersion = '1.0'
+    licences = ['MIT']
     desc = 'A static file dialog module'
     website = 'https://github.com/donmor/FileDialog'
+    issueTracker = "${website}/issues"
+    bintrayUser = properties.getProperty('bintrayUser')
+    bintrayKey = properties.getProperty('bintrayKey')
+    dryRun = false
 }
