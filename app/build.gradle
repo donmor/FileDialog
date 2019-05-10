@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.github.donmor3000.filedialog"
+        applicationId "com.github.donmor.filedialog"
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
