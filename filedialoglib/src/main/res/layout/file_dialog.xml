@@ -8,14 +8,14 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
         <Button
             android:id="@+id/btnBack"
             style="@style/Widget.AppCompat.Light.ActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
             android:drawableStart="@drawable/ic_arrow_back_black"
             android:drawableLeft="@drawable/ic_arrow_back_black"
             android:text="@string/parent_dir"
@@ -26,7 +26,6 @@
             android:id="@+id/lblPath"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
             android:layout_weight="1"
             android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
@@ -36,7 +35,6 @@
             style="@style/Widget.AppCompat.Light.ActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end|center_vertical"
             android:contentDescription="@string/new_folder"
             app:srcCompat="@drawable/ic_create_new_folder_black" />
     </TableRow>
@@ -52,7 +50,7 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical|end">
+        android:gravity="center_vertical">
 
         <EditText
             android:id="@+id/save_f_name"
