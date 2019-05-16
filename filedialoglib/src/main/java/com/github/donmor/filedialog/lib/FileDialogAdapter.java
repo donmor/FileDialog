@@ -36,7 +36,7 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 	final FileDialogFilter[] filters;
 	private final LayoutInflater inflater;
 
-	FileDialogAdapter(Context context, FileDialogFilter[] filters, int filterIndex, String[] mimeTypes,MimeTypeMap mimeTypeMap, File dir, boolean multiSelect, boolean dirOnly, boolean showHidden, boolean ignoreReadOnly) {
+	FileDialogAdapter(Context context, FileDialogFilter[] filters, int filterIndex, String[] mimeTypes, MimeTypeMap mimeTypeMap, File dir, boolean multiSelect, boolean dirOnly, boolean showHidden, boolean ignoreReadOnly) {
 		this.context = context;
 		this.multiSelect = multiSelect;
 		this.dirOnly = dirOnly;

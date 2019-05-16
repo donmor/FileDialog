@@ -37,7 +37,7 @@ public class FileDialogFilter {
 	 * Check whether a file matches extensions.
 	 *
 	 * @param filename The filename to check.
-	 * @return         The value will be true if the extension of the file equals one of extensions, or false if the extension of the file equals nothing.
+	 * @return The value will be true if the extension of the file equals one of extensions, or false if the extension of the file equals nothing.
 	 */
 	public boolean meetExtensions(String filename) throws ArrayIndexOutOfBoundsException {
 		if (extensions[0].equals(ALL)) return true;
