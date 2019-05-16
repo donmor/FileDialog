@@ -53,7 +53,6 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		} catch (Exception e) {
 			currentDir = Environment.getExternalStorageDirectory();
 		}
-		System.out.println(currentDir.getAbsolutePath());
 		rootDir = Environment.getExternalStorageDirectory();
 		enRoot = false;
 		dirs = sortFile(getDirs());
@@ -155,7 +154,7 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		return currentDir.listFiles(new FileFilter() {
 			@Override
 			public boolean accept(File pathname) {
-				return !(pathname.isHidden() && showHidden) && pathname.isDirectory();
+				return (!pathname.isHidden() || showHidden) && pathname.isDirectory();
 			}
 		});
 	}
@@ -165,13 +164,13 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 			@Override
 			public boolean accept(File pathname) {
 				if (mimeTypes != null)
-					if (!(pathname.isHidden() && showHidden) && pathname.isFile())
+					if ((!pathname.isHidden() || showHidden) && pathname.isFile())
 						if (mimeTypes[filterIndex].equals(FileDialog.MIME_ALL)) return true;
 						else
 							return mimeTypes[filterIndex].equals(mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(pathname.getName())));
 					else return false;
 				else
-					return !(pathname.isHidden() && showHidden) && pathname.isFile() && filters[filterIndex].meetExtensions(pathname.getName());
+					return (!pathname.isHidden() || showHidden) && pathname.isFile() && filters[filterIndex].meetExtensions(pathname.getName());
 			}
 		});
 	}

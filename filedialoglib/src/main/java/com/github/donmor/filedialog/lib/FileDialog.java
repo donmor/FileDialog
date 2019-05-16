@@ -476,7 +476,7 @@ public abstract class FileDialog {
 					public void afterTextChanged(Editable s) {
 						if (editText.getText().toString().indexOf('.') == 0) {
 							try {
-								if (showHidden) {
+								if (!showHidden) {
 									okx.setEnabled(false);
 									Toast.makeText(view1.getContext(), R.string.cannot_create_hidden_files, Toast.LENGTH_SHORT).show();
 								} else if (editText.getText().toString().substring(1).length() == 0)
@@ -550,11 +550,11 @@ public abstract class FileDialog {
 		if (mode == 1) ok.setEnabled(false);
 		else if (mode == 2) ok.setEnabled(true);
 		else if (mode == 3) {
-			if (fName.getText().toString().indexOf('.')==0) {
-				if (showHidden || fName.getText().toString().substring(1).length() == 0)
+			if (fName.getText().toString().indexOf('.') == 0) {
+				if (!showHidden || fName.getText().toString().substring(1).length() == 0)
 					ok.setEnabled(false);
 				else ok.setEnabled(true);
-			} else if (fName.getText().toString().indexOf('+')==0 || fName.getText().toString().indexOf('-')==0 || illegalFilename(fName.getText().toString())) {
+			} else if (fName.getText().toString().indexOf('+') == 0 || fName.getText().toString().indexOf('-') == 0 || illegalFilename(fName.getText().toString())) {
 				ok.setEnabled(false);
 			} else if (fName.getText().toString().length() > 0)
 				ok.setEnabled(true);
@@ -635,7 +635,7 @@ public abstract class FileDialog {
 					else if (mode == 2) ok.setEnabled(true);
 					else if (mode == 3) {
 						if (fName.getText().toString().indexOf('.') == 0) {
-							if (showHidden || fName.getText().toString().substring(1).length() == 0)
+							if (!showHidden || fName.getText().toString().substring(1).length() == 0)
 								ok.setEnabled(false);
 							else ok.setEnabled(true);
 						} else if (fName.getText().toString().indexOf('+') == 0 || fName.getText().toString().indexOf('-') == 0 || illegalFilename(fName.getText().toString())) {
@@ -667,11 +667,11 @@ public abstract class FileDialog {
 					if (mode == 1) ok.setEnabled(false);
 					else if (mode == 2) ok.setEnabled(true);
 					else if (mode == 3) {
-						if (fName.getText().toString().indexOf('.')==0) {
-							if (showHidden || fName.getText().toString().substring(1).length() == 0)
+						if (fName.getText().toString().indexOf('.') == 0) {
+							if (!showHidden || fName.getText().toString().substring(1).length() == 0)
 								ok.setEnabled(false);
 							else ok.setEnabled(true);
-						} else if (fName.getText().toString().indexOf('+')==0 || fName.getText().toString().indexOf('-')==0 || illegalFilename(fName.getText().toString())) {
+						} else if (fName.getText().toString().indexOf('+') == 0 || fName.getText().toString().indexOf('-') == 0 || illegalFilename(fName.getText().toString())) {
 							ok.setEnabled(false);
 						} else if (fName.getText().toString().length() > 0)
 							ok.setEnabled(true);
@@ -709,14 +709,14 @@ public abstract class FileDialog {
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				if (fName.getText().toString().indexOf('.')==0) {
-					if (showHidden) {
+				if (fName.getText().toString().indexOf('.') == 0) {
+					if (!showHidden) {
 						ok.setEnabled(false);
 						Toast.makeText(view.getContext(), R.string.cannot_create_hidden_files, Toast.LENGTH_SHORT).show();
 					} else if (fName.getText().toString().substring(1).length() == 0)
 						ok.setEnabled(false);
 					else ok.setEnabled(true);
-				} else if (fName.getText().toString().indexOf('+')==0 || fName.getText().toString().indexOf('-')==0) {
+				} else if (fName.getText().toString().indexOf('+') == 0 || fName.getText().toString().indexOf('-') == 0) {
 					ok.setEnabled(false);
 					Toast.makeText(view.getContext(), R.string.filename_cannot_begin_with, Toast.LENGTH_SHORT).show();
 				} else if (illegalFilename(fName.getText().toString())) {
@@ -760,7 +760,6 @@ public abstract class FileDialog {
 				int i = 0;
 				for (String path : pathArray) {
 					File file = new File(path);
-					System.out.println(file.getAbsolutePath());
 					if (!TextUtils.isEmpty(path) && file.exists()) {
 						statFs = new StatFs(path);
 						long v;
@@ -768,7 +767,6 @@ public abstract class FileDialog {
 							v = statFs.getBlockCount() * statFs.getBlockSize();
 						else v = statFs.getBlockCountLong() * statFs.getBlockSizeLong();
 						if (v != 0 && (ignoreReadOnly || file.canWrite())) {
-							System.out.println(file.canWrite());
 							files[i] = file;
 							i++;
 						}
