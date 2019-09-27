@@ -1,0 +1,10 @@
+<!--
+  ~ /home/donmor/AndroidStudioProjects/FileDialog/filedialoglib/src/main/res/values/color.xml <= [P|FileDialog]
+  ~ Last modified: 17:55:26 2019/09/27
+  ~ Copyright (c) 2019 donmor
+  -->
+
+<resources>
+    <color name="content">@android:color/black</color>
+    <color name="content_tint">#FF424242</color>
+</resources>

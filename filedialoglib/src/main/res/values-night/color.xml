@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /home/donmor/AndroidStudioProjects/FileDialog/filedialoglib/src/main/res/values-night/color.xml <= [P|FileDialog]
+  ~ Last modified: 18:23:51 2019/09/27
+  ~ Copyright (c) 2019 donmor
+  -->
+
+<resources>
+    <color name="content">@android:color/white</color>
+    <color name="content_tint">#CCFFFFFF</color>
+</resources>

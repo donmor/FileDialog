@@ -40,7 +40,7 @@
             app:srcCompat="@drawable/ic_create_new_folder_black" />
     </TableRow>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/diFileList"
         android:layout_width="match_parent"
         android:layout_height="0dp"

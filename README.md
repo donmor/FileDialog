@@ -7,7 +7,7 @@ The class FileDialog provides a set of methods to open dialogs for file-operatin
 The library is published with a demo app. Here is a part of the MainActivity.java: 
 
 ```java
-@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
