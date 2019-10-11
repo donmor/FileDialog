@@ -22,7 +22,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 14
         versionCode getVersionCode()
-        versionName "1.1"
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
     }
@@ -45,6 +45,7 @@ dependencies {
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
+    //noinspection GrDeprecatedAPIUsage
     classifier 'sources'
 }
 
@@ -62,6 +63,7 @@ tasks.withType(Javadoc) {
 
 task generateJavadocsJar(type: Jar, dependsOn: generateJavadocs) {
     from generateJavadocs.destinationDir
+    //noinspection GrDeprecatedAPIUsage
     classifier 'javadoc'
 }
 
@@ -79,7 +81,8 @@ publish {
     repoName = 'FileDialog'
     groupId = 'com.github.donmor'
     artifactId = 'filedialog'
-    publishVersion = '1.0'
+    publishVersion = '1.2'
+    //noinspection GroovyAccessibility
     licences = ['MIT']
     desc = 'A static file dialog module'
     website = 'https://github.com/donmor/FileDialog'

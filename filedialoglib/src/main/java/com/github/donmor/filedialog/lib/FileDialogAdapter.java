@@ -189,9 +189,9 @@ class FileDialogAdapter extends RecyclerView.Adapter<FileDialogAdapter.FileViewH
 		return src;
 	}
 
-	private Boolean chrSort(String s1, String s2) {
-		char[] sa1 = s1.toCharArray();
-		char[] sa2 = s2.toCharArray();
+	private boolean chrSort(String s1, String s2) {
+		char[] sa1 = s1.toLowerCase().toCharArray();
+		char[] sa2 = s2.toLowerCase().toCharArray();
 		for (int i = 0; i < Math.min(sa1.length, sa2.length); i++) {
 			if (sa1[i] < sa2[i]) return true;
 			else if (sa1[i] > sa2[i]) return false;
