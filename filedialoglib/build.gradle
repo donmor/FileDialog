@@ -105,11 +105,51 @@ properties.load(inputStream)
 //    dryRun = false
 //}
 
-mavenPublish {
-    nexus {
-    }
-}
-
 signing {
     sign configurations.archives
 }
+
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//
+//            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+//                authentication(userName: ossrhUsername, password: ossrhPassword)
+//            }
+//
+//            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+//                authentication(userName: ossrhUsername, password: ossrhPassword)
+//            }
+//
+//            pom.project {
+//                name 'FileDialog'
+//                packaging 'aar'
+//                // optionally artifactId can be defined here
+//                description 'The class FileDialog provides a set of methods to open dialogs for file-operating. It contains a set of static methods opening AlertDialogs to choose files or a directory, and a callback providing a java.io.File array contains files or directory chosen for further usages.'
+//                url 'https://github.com/donmor/FileDialog'
+//
+//                scm {
+//                    connection 'scm:git:git://github.com/donmor/FileDialog.git'
+//                    developerConnection 'scm:git:ssh://git@github.com/donmor/FileDialog.git'
+//                    url 'https://github.com/donmor/FileDialog'
+//                }
+//
+//                licenses {
+//                    license {
+//                        name 'MIT License'
+//                        url 'https://mit-license.org/license.txt'
+//                    }
+//                }
+//
+//                developers {
+//                    developer {
+//                        id 'donmor3000'
+//                        name 'donmor'
+//                        email 'donmor3000@hotmail.com'
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
