@@ -479,9 +479,7 @@ public abstract class FileDialog {
 								if (!showHidden) {
 									okx.setEnabled(false);
 									Toast.makeText(view1.getContext(), R.string.cannot_create_hidden_files, Toast.LENGTH_SHORT).show();
-								} else if (editText.getText().toString().substring(1).length() == 0)
-									okx.setEnabled(false);
-								else okx.setEnabled(true);
+								} else okx.setEnabled(editText.getText().toString().substring(1).length() != 0);
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -491,8 +489,7 @@ public abstract class FileDialog {
 						} else if (illegalFilename(editText.getText().toString())) {
 							okx.setEnabled(false);
 							Toast.makeText(view1.getContext(), R.string.filename_cannot_contains, Toast.LENGTH_SHORT).show();
-						} else if (editText.getText().toString().length() > 0) okx.setEnabled(true);
-						else okx.setEnabled(false);
+						} else okx.setEnabled(editText.getText().toString().length() > 0);
 					}
 				});
 				editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -551,14 +548,10 @@ public abstract class FileDialog {
 		else if (mode == 2) ok.setEnabled(true);
 		else if (mode == 3) {
 			if (fName.getText().toString().indexOf('.') == 0) {
-				if (!showHidden || fName.getText().toString().substring(1).length() == 0)
-					ok.setEnabled(false);
-				else ok.setEnabled(true);
+				ok.setEnabled(showHidden && fName.getText().toString().substring(1).length() != 0);
 			} else if (fName.getText().toString().indexOf('+') == 0 || fName.getText().toString().indexOf('-') == 0 || illegalFilename(fName.getText().toString())) {
 				ok.setEnabled(false);
-			} else if (fName.getText().toString().length() > 0)
-				ok.setEnabled(true);
-			else ok.setEnabled(false);
+			} else ok.setEnabled(fName.getText().toString().length() > 0);
 		}
 		ok.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -635,14 +628,10 @@ public abstract class FileDialog {
 					else if (mode == 2) ok.setEnabled(true);
 					else if (mode == 3) {
 						if (fName.getText().toString().indexOf('.') == 0) {
-							if (!showHidden || fName.getText().toString().substring(1).length() == 0)
-								ok.setEnabled(false);
-							else ok.setEnabled(true);
+							ok.setEnabled(showHidden && fName.getText().toString().substring(1).length() != 0);
 						} else if (fName.getText().toString().indexOf('+') == 0 || fName.getText().toString().indexOf('-') == 0 || illegalFilename(fName.getText().toString())) {
 							ok.setEnabled(false);
-						} else if (fName.getText().toString().length() > 0)
-							ok.setEnabled(true);
-						else ok.setEnabled(false);
+						} else ok.setEnabled(fName.getText().toString().length() > 0);
 					}
 					if (fName.getText().toString().length() > 0 && !illegalFilename(fName.getText().toString()))
 						ok.setEnabled(true);
@@ -668,14 +657,10 @@ public abstract class FileDialog {
 					else if (mode == 2) ok.setEnabled(true);
 					else if (mode == 3) {
 						if (fName.getText().toString().indexOf('.') == 0) {
-							if (!showHidden || fName.getText().toString().substring(1).length() == 0)
-								ok.setEnabled(false);
-							else ok.setEnabled(true);
+							ok.setEnabled(showHidden && fName.getText().toString().substring(1).length() != 0);
 						} else if (fName.getText().toString().indexOf('+') == 0 || fName.getText().toString().indexOf('-') == 0 || illegalFilename(fName.getText().toString())) {
 							ok.setEnabled(false);
-						} else if (fName.getText().toString().length() > 0)
-							ok.setEnabled(true);
-						else ok.setEnabled(false);
+						} else ok.setEnabled(fName.getText().toString().length() > 0);
 					}
 				} else if (f.isFile()) {
 					if (mode == 0) {
@@ -713,17 +698,14 @@ public abstract class FileDialog {
 					if (!showHidden) {
 						ok.setEnabled(false);
 						Toast.makeText(view.getContext(), R.string.cannot_create_hidden_files, Toast.LENGTH_SHORT).show();
-					} else if (fName.getText().toString().substring(1).length() == 0)
-						ok.setEnabled(false);
-					else ok.setEnabled(true);
+					} else ok.setEnabled(fName.getText().toString().substring(1).length() != 0);
 				} else if (fName.getText().toString().indexOf('+') == 0 || fName.getText().toString().indexOf('-') == 0) {
 					ok.setEnabled(false);
 					Toast.makeText(view.getContext(), R.string.filename_cannot_begin_with, Toast.LENGTH_SHORT).show();
 				} else if (illegalFilename(fName.getText().toString())) {
 					ok.setEnabled(false);
 					Toast.makeText(view.getContext(), R.string.filename_cannot_contains, Toast.LENGTH_SHORT).show();
-				} else if (fName.getText().toString().length() > 0) ok.setEnabled(true);
-				else ok.setEnabled(false);
+				} else ok.setEnabled(fName.getText().toString().length() > 0);
 			}
 		});
 		fName.setOnEditorActionListener(new TextView.OnEditorActionListener() {

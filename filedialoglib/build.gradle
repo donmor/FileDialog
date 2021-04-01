@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.vanniktech.maven.publish'
+//apply plugin: 'maven-publish'
+apply plugin: 'signing'
+//apply plugin: 'com.novoda.bintray-release'
 
 def getVersionCode = { ->
     try {
@@ -16,13 +19,13 @@ def getVersionCode = { ->
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
+        //noinspection MinSdkTooLow
         minSdkVersion 14
-        //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 14
+        targetSdkVersion 30
         versionCode getVersionCode()
-        versionName "1.2"
+        versionName "1.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
     }
@@ -36,22 +39,31 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
 task generateSourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    //noinspection GrDeprecatedAPIUsage
-    classifier 'sources'
+    archiveClassifier.set('sources')
+    if (project.plugins.findPlugin("com.android.library")) {
+        from android.sourceSets.main.java.srcDirs
+    } else {
+        from sourceSets.main.java.srcDirs
+    }
 }
 
 task generateJavadocs(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+afterEvaluate {
+    generateJavadocs.classpath += files(android.libraryVariants.collect { variant ->
+        variant.javaCompileProvider.get().classpath.files
+    })
 }
 
 tasks.withType(Javadoc) {
@@ -63,8 +75,7 @@ tasks.withType(Javadoc) {
 
 task generateJavadocsJar(type: Jar, dependsOn: generateJavadocs) {
     from generateJavadocs.destinationDir
-    //noinspection GrDeprecatedAPIUsage
-    classifier 'javadoc'
+    archiveClassifier.set('javadoc')
 }
 
 artifacts {
@@ -76,18 +87,28 @@ def properties = new Properties()
 def inputStream = project.rootProject.file('local.properties').newDataInputStream()
 properties.load(inputStream)
 
-publish {
-    userOrg = 'donmor3000'
-    repoName = 'FileDialog'
-    groupId = 'com.github.donmor'
-    artifactId = 'filedialog'
-    publishVersion = '1.2'
-    //noinspection GroovyAccessibility
-    licences = ['MIT']
-    desc = 'A static file dialog module'
-    website = 'https://github.com/donmor/FileDialog'
-    issueTracker = "${website}/issues"
-    bintrayUser = properties.getProperty('bintrayUser')
-    bintrayKey = properties.getProperty('bintrayKey')
-    dryRun = false
+
+//publish {
+//    userOrg = 'donmor3000'
+//    repoName = 'FileDialog'
+//    groupId = 'com.github.donmor'
+//    artifactId = 'filedialog'
+//    publishVersion = '1.2'
+//    //noinspection GroovyAccessibility
+//    licences = ['MIT']
+//    desc = 'A static file dialog module'
+//    website = 'https://github.com/donmor/FileDialog'
+//    issueTracker = "${website}/issues"
+//    bintrayUser = properties.getProperty('bintrayUser')
+//    bintrayKey = properties.getProperty('bintrayKey')
+//    dryRun = false
+//}
+
+mavenPublish {
+    nexus {
+    }
+}
+
+signing {
+    sign configurations.archives
 }
