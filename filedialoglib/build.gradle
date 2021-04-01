@@ -71,6 +71,7 @@ tasks.withType(Javadoc) {
     options.addStringOption('locale', 'en')
     options.addStringOption('encoding', 'UTF-8')
     options.addStringOption('charSet', 'UTF-8')
+    options.addStringOption('link', 'https://docs.oracle.com/javase/8/docs/api/')
 }
 
 task generateJavadocsJar(type: Jar, dependsOn: generateJavadocs) {
