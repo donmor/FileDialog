@@ -1,8 +1,11 @@
+ext {
+    RELEASE_REPOSITORY_URL = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+    SNAPSHOT_REPOSITORY_URL = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'com.vanniktech.maven.publish'
-//apply plugin: 'maven-publish'
 apply plugin: 'signing'
-//apply plugin: 'com.novoda.bintray-release'
 
 def getVersionCode = { ->
     try {
@@ -60,12 +63,6 @@ task generateJavadocs(type: Javadoc) {
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
 
-afterEvaluate {
-    generateJavadocs.classpath += files(android.libraryVariants.collect { variant ->
-        variant.javaCompileProvider.get().classpath.files
-    })
-}
-
 tasks.withType(Javadoc) {
     options.addStringOption('Xdoclint:none', '-quiet')
     options.addStringOption('locale', 'en')
@@ -84,72 +81,6 @@ artifacts {
     archives generateSourcesJar
 }
 
-def properties = new Properties()
-def inputStream = project.rootProject.file('local.properties').newDataInputStream()
-properties.load(inputStream)
-
-
-//publish {
-//    userOrg = 'donmor3000'
-//    repoName = 'FileDialog'
-//    groupId = 'com.github.donmor'
-//    artifactId = 'filedialog'
-//    publishVersion = '1.2'
-//    //noinspection GroovyAccessibility
-//    licences = ['MIT']
-//    desc = 'A static file dialog module'
-//    website = 'https://github.com/donmor/FileDialog'
-//    issueTracker = "${website}/issues"
-//    bintrayUser = properties.getProperty('bintrayUser')
-//    bintrayKey = properties.getProperty('bintrayKey')
-//    dryRun = false
-//}
-
 signing {
     sign configurations.archives
 }
-
-//uploadArchives {
-//    repositories {
-//        mavenDeployer {
-//            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-//
-//            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
-//                authentication(userName: ossrhUsername, password: ossrhPassword)
-//            }
-//
-//            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
-//                authentication(userName: ossrhUsername, password: ossrhPassword)
-//            }
-//
-//            pom.project {
-//                name 'FileDialog'
-//                packaging 'aar'
-//                // optionally artifactId can be defined here
-//                description 'The class FileDialog provides a set of methods to open dialogs for file-operating. It contains a set of static methods opening AlertDialogs to choose files or a directory, and a callback providing a java.io.File array contains files or directory chosen for further usages.'
-//                url 'https://github.com/donmor/FileDialog'
-//
-//                scm {
-//                    connection 'scm:git:git://github.com/donmor/FileDialog.git'
-//                    developerConnection 'scm:git:ssh://git@github.com/donmor/FileDialog.git'
-//                    url 'https://github.com/donmor/FileDialog'
-//                }
-//
-//                licenses {
-//                    license {
-//                        name 'MIT License'
-//                        url 'https://mit-license.org/license.txt'
-//                    }
-//                }
-//
-//                developers {
-//                    developer {
-//                        id 'donmor3000'
-//                        name 'donmor'
-//                        email 'donmor3000@hotmail.com'
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
